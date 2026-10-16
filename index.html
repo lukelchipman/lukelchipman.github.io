@@ -10,85 +10,125 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#ECEEEB;        /* concrete */
+    --bg:#ECEEEB;
     --surface:#F8F9F7;
     --ink:#161D26;
     --steel:#56616D;
     --line:#CDD2CF;
-    --hivis:#F3C318;     /* safety yellow — used only for awards + focus */
+    --hivis:#F3C318;
     --max:1180px;
     --gutter:clamp(16px,4vw,48px);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;font-variation-settings:"wdth" 100}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55}
   img{max-width:100%;display:block}
   a{color:inherit}
+  button{font:inherit;color:inherit}
   :focus-visible{outline:3px solid var(--hivis);outline-offset:3px}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+  [hidden]{display:none!important}
 
   /* nav */
   .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
-  .nav .mark{font-weight:800;font-variation-settings:"wdth" 125;text-decoration:none;letter-spacing:-.01em}
-  .nav ul{display:flex;gap:clamp(12px,2.5vw,28px);list-style:none;margin:0;padding:0;font-size:15px}
-  .nav ul a{text-decoration:none;color:var(--steel)}
+  .nav .mark{font-weight:800;font-variation-settings:"wdth" 125;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+  .nav ul{display:flex;gap:clamp(14px,2.5vw,28px);list-style:none;margin:0;padding:0;font-size:15px}
+  .nav ul a{text-decoration:none;color:var(--steel);padding:4px 0;border-bottom:2px solid transparent}
   .nav ul a:hover{color:var(--ink)}
-  @media (max-width:640px){.nav ul li.hide-sm{display:none}}
+  @media (max-width:480px){.nav ul{gap:16px;font-size:14px}.nav li.hide-sm{display:none}}
+  .nav ul a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+  /* views */
+  .view{padding-bottom:clamp(56px,8vw,96px)}
+  .view-enter{animation:in .25s ease-out}
+  @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   /* hero */
   .hero{padding-top:clamp(48px,9vw,110px);padding-bottom:clamp(40px,6vw,72px)}
   .hero h1{margin:0;font-weight:850;font-variation-settings:"wdth" 125;font-size:clamp(54px,11.5vw,156px);line-height:.86;letter-spacing:-.035em}
   .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:clamp(28px,4vw,48px);align-items:end}
   .hero p.lede{font-size:clamp(19px,2.1vw,23px);line-height:1.45;margin:0 0 24px;max-width:34ch}
-  .hero .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 28px;padding:0;list-style:none;color:var(--steel);font-size:15px}
-  .hero .facts b{display:block;color:var(--ink);font-size:20px;font-variation-settings:"wdth" 112}
+  .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 28px;padding:0;list-style:none;color:var(--steel);font-size:15px}
+  .facts b{display:block;color:var(--ink);font-size:20px;font-variation-settings:"wdth" 112}
   .btns{display:flex;flex-wrap:wrap;gap:12px}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1.5px solid var(--ink);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1.5px solid var(--ink);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;background:none;cursor:pointer}
   .btn.solid{background:var(--ink);color:var(--surface)}
   .btn:hover{background:var(--ink);color:var(--surface)}
-  .hero-shot{aspect-ratio:4/3}
-  @media (max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-shot{order:-1}}
+  .hero-photo{aspect-ratio:4/3;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+  .hero-photo img{width:100%;height:100%;object-fit:cover}
+  @media (max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-photo{order:-1}}
 
   /* section heads */
-  section{scroll-margin-top:64px}
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:2px solid var(--ink);padding-top:14px;margin:0 0 32px}
+  .sec{padding-top:clamp(48px,7vw,88px)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:2px solid var(--ink);padding-top:14px;margin:0 0 28px}
   .sec-head h2{margin:0;font-size:clamp(28px,4vw,40px);font-weight:800;font-variation-settings:"wdth" 118;letter-spacing:-.02em}
-  .sec-head span{color:var(--steel);font-size:15px}
+  .sec-head .aside{color:var(--steel);font-size:15px}
+  .sec-head a.aside{color:var(--ink);font-weight:600}
+  .page-title{padding-top:clamp(40px,6vw,72px)}
+  .page-title p{color:var(--steel);margin:-12px 0 28px;max-width:60ch}
 
-  /* project index */
-  .index{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0 32px;margin:0 0 56px;padding:0;list-style:none}
-  .index a{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:15px}
-  .index a:hover .t{text-decoration:underline}
-  .index .y{color:var(--steel);font-variant-numeric:tabular-nums}
+  /* filters */
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+  .filters button{border:1px solid var(--line);background:var(--surface);padding:6px 14px;border-radius:20px;font-size:14px;cursor:pointer;color:var(--steel)}
+  .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
 
-  /* project */
-  .project{display:grid;grid-template-columns:7fr 5fr;gap:clamp(20px,3.5vw,48px);padding:44px 0;border-top:1px solid var(--line);scroll-margin-top:64px}
-  .project:first-of-type{border-top:0;padding-top:0}
-  @media (max-width:860px){.project{grid-template-columns:1fr}}
-  .project h3{margin:0 0 6px;font-size:clamp(24px,2.8vw,32px);line-height:1.12;font-weight:750;font-variation-settings:"wdth" 108;letter-spacing:-.015em}
-  .meta{color:var(--steel);font-size:15px;margin:0 0 16px}
-  .meta strong{color:var(--ink);font-weight:600}
-  .award{display:inline-block;background:var(--hivis);color:var(--ink);font-weight:700;font-size:14px;padding:3px 9px;margin:0 0 14px;border-radius:2px}
-  .project p.sum{margin:0 0 14px}
-  .project ul.pts{margin:0 0 16px;padding-left:1.1em}
-  .project ul.pts li{margin:0 0 6px}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-  .tags li{font-size:13px;border:1px solid var(--line);background:var(--surface);padding:2px 8px;border-radius:20px;color:var(--steel)}
+  /* project grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,28px)}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;transition:border-color .15s}
+  .card:hover{border-color:var(--steel)}
+  .card .text{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+  .card .meta{font-size:14px;color:var(--steel);margin:0 0 4px}
+  .card h3{margin:0 0 8px;font-size:20px;line-height:1.2;font-weight:700;font-variation-settings:"wdth" 104}
+  .card h3 a{text-decoration:none}
+  .card h3 a::after{content:"";position:absolute;inset:0}  /* whole card clickable */
+  .card{position:relative}
+  .card p.sum{margin:0 0 14px;font-size:15px;color:var(--steel);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .card .more{margin-top:auto;font-size:14px;font-weight:600}
+  .award{display:inline-block;align-self:flex-start;background:var(--hivis);color:var(--ink);font-weight:700;font-size:13px;padding:2px 8px;margin:0 0 10px;border-radius:2px}
 
-  /* gallery */
-  .gallery .main{position:relative;aspect-ratio:3/2;background:var(--surface);border:1px solid var(--line);overflow:hidden;cursor:zoom-in}
-  .gallery .main img{width:100%;height:100%;object-fit:cover}
-  .thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
-  .thumbs button{padding:0;border:1px solid var(--line);background:var(--surface);aspect-ratio:1;cursor:pointer;overflow:hidden;opacity:.6}
-  .thumbs button[aria-current="true"]{opacity:1;outline:2px solid var(--ink);outline-offset:-2px}
-  .thumbs img{width:100%;height:100%;object-fit:cover}
+  /* rotating preview (cards + detail) */
+  .rot{position:relative;aspect-ratio:3/2;background:var(--surface);overflow:hidden}
+  .rot img{width:100%;height:100%;object-fit:cover}
+  .rot .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(248,249,247,.9);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;opacity:0;transition:opacity .15s}
+  .rot .prev{left:8px}.rot .next{right:8px}
+  .card:hover .arrow,.rot .arrow:focus-visible{opacity:1}
+  @media (hover:none){.rot .arrow{opacity:1}}
+  .rot .dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:2;pointer-events:none}
+  .rot .dots i{width:6px;height:6px;border-radius:50%;background:rgba(248,249,247,.6);box-shadow:0 0 0 1px rgba(22,29,38,.25)}
+  .rot .dots i.on{background:#fff}
   .ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:12px;color:var(--steel);font-size:13px;line-height:1.35;
       background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(86,97,109,.07) 10px 20px),var(--surface)}
-  .thumbs .ph{font-size:0}
 
-  /* experience */
+  /* detail view */
+  .back{display:inline-block;margin:clamp(24px,4vw,40px) 0 20px;font-size:15px;text-decoration:none;color:var(--steel)}
+  .back:hover{color:var(--ink)}
+  .detail{display:grid;grid-template-columns:7fr 5fr;gap:clamp(20px,3.5vw,48px);align-items:start}
+  @media (max-width:860px){.detail{grid-template-columns:1fr}}
+  .detail .rot{border:1px solid var(--line);cursor:zoom-in}
+  .detail .rot .arrow{opacity:1}
+  .thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}
+  .thumbs button{padding:0;border:1px solid var(--line);background:var(--surface);aspect-ratio:1;cursor:pointer;overflow:hidden;opacity:.55}
+  .thumbs button[aria-current="true"]{opacity:1;outline:2px solid var(--ink);outline-offset:-2px}
+  .thumbs img{width:100%;height:100%;object-fit:cover}
+  .thumbs .ph{font-size:0}
+  .detail h1{margin:0 0 6px;font-size:clamp(26px,3vw,36px);line-height:1.1;font-weight:800;font-variation-settings:"wdth" 110;letter-spacing:-.02em}
+  .detail .meta{color:var(--steel);font-size:15px;margin:0 0 18px}
+  .detail .meta strong{color:var(--ink);font-weight:600}
+  .detail p{margin:0 0 14px}
+  .detail ul.pts{margin:0 0 18px;padding-left:1.1em}
+  .detail ul.pts li{margin:0 0 6px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+  .tags li{font-size:13px;border:1px solid var(--line);background:var(--surface);padding:2px 8px;border-radius:20px;color:var(--steel)}
+  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:clamp(40px,6vw,64px);padding-top:16px;border-top:1px solid var(--line)}
+  .pager a{text-decoration:none;max-width:45%}
+  .pager span{display:block;font-size:13px;color:var(--steel)}
+  .pager b{font-weight:600}
+  .pager .nxt{text-align:right;margin-left:auto}
+
+  /* experience etc */
   .exp{list-style:none;margin:0;padding:0}
   .exp li{display:grid;grid-template-columns:190px 1fr;gap:8px 32px;padding:18px 0;border-bottom:1px solid var(--line)}
   .exp .when{color:var(--steel);font-variant-numeric:tabular-nums;font-size:15px;padding-top:3px}
@@ -96,7 +136,6 @@
   .exp p{margin:4px 0 0;color:var(--steel)}
   .exp a{font-size:15px}
   @media (max-width:640px){.exp li{grid-template-columns:1fr}}
-
   .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px)}
   @media (max-width:820px){.two{grid-template-columns:1fr}}
   .awards{list-style:none;margin:0;padding:0}
@@ -108,132 +147,158 @@
   dl.skills dt:first-child{margin-top:0}
   dl.skills dd{margin:2px 0 0;color:var(--steel)}
 
-  .block{padding:clamp(56px,8vw,96px) 0 0}
-  footer{padding:clamp(56px,8vw,96px) 0 48px}
-  footer .big{font-size:clamp(30px,5vw,56px);font-weight:800;font-variation-settings:"wdth" 120;letter-spacing:-.025em;line-height:1.05;margin:0 0 24px}
-  footer .small{color:var(--steel);font-size:14px;margin-top:48px}
+  footer{border-top:1px solid var(--line);padding:40px 0 48px}
+  footer .big{font-size:clamp(26px,4vw,44px);font-weight:800;font-variation-settings:"wdth" 120;letter-spacing:-.025em;line-height:1.05;margin:0 0 20px;word-break:break-word}
+  footer .small{color:var(--steel);font-size:14px;margin-top:36px}
 
   /* lightbox */
   dialog{border:0;padding:0;background:transparent;max-width:min(94vw,1400px);max-height:92vh}
-  dialog::backdrop{background:rgba(22,29,38,.88)}
-  dialog img{max-height:86vh;width:auto;margin:0 auto}
+  dialog::backdrop{background:rgba(22,29,38,.9)}
+  dialog img{max-height:84vh;width:auto;margin:0 auto}
   dialog p{color:#E6E9EC;text-align:center;font-size:14px;margin:10px 0 0}
-  dialog button{position:fixed;top:14px;right:18px;background:none;border:0;color:#fff;font-size:34px;line-height:1;cursor:pointer}
+  dialog .x{position:fixed;top:14px;right:18px;background:none;border:0;color:#fff;font-size:34px;line-height:1;cursor:pointer}
+  dialog .lbn{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:0;color:#fff;font-size:26px;width:46px;height:46px;border-radius:50%;cursor:pointer}
+  dialog .lbp{left:16px}dialog .lbx{right:16px}
 </style>
 </head>
 <body>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="mark" href="#top">Luke Chipman</a>
+    <a class="mark" href="#/">Luke Chipman</a>
     <ul>
-      <li><a href="#work">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li class="hide-sm"><a href="#more">Awards &amp; skills</a></li>
+      <li><a href="#/" data-nav="home">About</a></li>
+      <li><a href="#/projects" data-nav="projects">Projects</a></li>
+      <li class="hide-sm"><a href="resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<main id="top">
-  <header class="hero wrap">
-    <h1>Luke<br>Chipman</h1>
-    <div class="hero-grid">
-      <div>
-        <p class="lede">Mechanical engineering student at Queen's University. I design, build and test hardware: robotic tooling, composite aircraft, and products people buy.</p>
-        <ul class="facts">
-          <li><b>4.0 GPA</b>Mech. Eng., Materials option</li>
-          <li><b>3rd in Canada</b>CEC Junior Design 2026</li>
-          <li><b>$10k+</b>in product sales</li>
-        </ul>
-        <div class="btns">
-          <a class="btn solid" href="#work">See projects</a>
-          <a class="btn" href="resume.pdf" download>Download résumé</a>
+<main>
+  <!-- HOME VIEW -->
+  <div id="view-home" class="view">
+    <header class="hero wrap">
+      <h1>Luke<br>Chipman</h1>
+      <div class="hero-grid">
+        <div>
+          <p class="lede">Mechanical engineering student at Queen's University. I design, build and test hardware: robotic tooling, composite aircraft, and products people buy.</p>
+          <ul class="facts">
+            <li><b>4.0 GPA</b>Mech. Eng., Materials option</li>
+            <li><b>3rd in Canada</b>CEC Junior Design 2026</li>
+            <li><b>$10k+</b>in product sales</li>
+          </ul>
+          <div class="btns">
+            <a class="btn solid" href="#/projects">View projects</a>
+            <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+          </div>
+        </div>
+        <div class="hero-photo" id="hero-photo"></div>
+      </div>
+    </header>
+
+    <section class="wrap">
+      <div class="sec-head"><h2>Recent projects</h2><a class="aside" href="#/projects">All projects</a></div>
+      <div class="grid" id="home-grid"></div>
+    </section>
+
+    <section class="wrap sec">
+      <div class="sec-head"><h2>Experience</h2><span class="aside">Queen's B.A.Sc. Mechanical Engineering, 2024–2028</span></div>
+      <ul class="exp">
+        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Led the automatic tool changer, installed two concrete printers on site, moved part manufacturing to an overseas shop.</p><a href="#/projects/tool-changer">Tool changer project</a></div></li>
+        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Oversee the mechanical sub-teams designing and building a composite UAV for SAE Aero Design.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
+        <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team building a full carbon fibre UAV for AIAA Design/Build/Fly 2026.</p><a href="#/projects/dbf-uav">DBF UAV project</a></div></li>
+        <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and ran 7-axis concrete printers, built client demos, prototyped woodworking attachments.</p><a href="#/projects/concrete-printing">Concrete printing project</a></div></li>
+        <li><span class="when">Jan 2025 – May 2025</span><div><h4>Lunar Greenhouse Harvesting Mechanism, Canadian Space Agency</h4><p>Designed a robotic-arm end effector for handling small plants, with weekly CSA mentorship.</p><a href="#/projects/lunar-greenhouse">Lunar greenhouse project</a></div></li>
+        <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>Architectural models, cinema camera hardware and 3D printed props sold online.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
+      </ul>
+    </section>
+
+    <section class="wrap sec">
+      <div class="two">
+        <div>
+          <div class="sec-head"><h2>Awards</h2></div>
+          <ul class="awards">
+            <li><b>3rd place, Canadian Engineering Competition</b><span>Junior Design, March 2026. Qualified by winning the Queen's and Ontario competitions.</span></li>
+            <li><b>Judges' Choice Award, MechMania</b><span>April 2026. 4-day design challenge against 275 mechanical engineering students.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-head"><h2>Skills</h2></div>
+          <dl class="skills">
+            <dt>Fabrication</dt><dd>3D printing, composite layups, laser cutting, machine shop, welding, soldering</dd>
+            <dt>Design &amp; analysis</dt><dd>SolidWorks, Onshape, Rhino/Grasshopper, Ansys (FEA), technical drawings</dd>
+            <dt>Robotics</dt><dd>ABB RobotStudio, Rhino Robot</dd>
+            <dt>Programming</dt><dd>Python, C, C++, MATLAB</dd>
+          </dl>
         </div>
       </div>
-      <div class="hero-shot gallery"><div class="main" data-hero></div></div>
-    </div>
-  </header>
+    </section>
+  </div>
 
-  <section id="work" class="wrap">
-    <div class="sec-head"><h2>Projects</h2><span id="count"></span></div>
-    <ul class="index" id="index"></ul>
-    <div id="projects"></div>
-  </section>
+  <!-- PROJECTS VIEW -->
+  <div id="view-projects" class="view" hidden>
+    <section class="wrap page-title">
+      <div class="sec-head"><h2>Projects</h2><span class="aside" id="count"></span></div>
+      <p>Click a project for photos and the full write-up. Newest first.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+      <div class="grid" id="all-grid"></div>
+    </section>
+  </div>
 
-  <section id="experience" class="wrap block">
-    <div class="sec-head"><h2>Experience</h2><span>Queen's B.A.Sc. Mechanical Engineering, 2024–2028</span></div>
-    <ul class="exp">
-      <li><span class="when">May 2026 – present</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Led the automatic tool changer, installed two concrete printers on site, moved part manufacturing to an overseas shop.</p><a href="#tool-changer">Tool changer project</a></div></li>
-      <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Oversee the mechanical sub-teams designing and building a composite UAV for SAE Aero Design.</p><a href="#sae-aero">SAE Aero project</a></div></li>
-      <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team building a full carbon fibre UAV for AIAA Design/Build/Fly 2026.</p><a href="#dbf-uav">DBF UAV project</a></div></li>
-      <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and ran 7-axis concrete printers, built client demos, prototyped woodworking attachments.</p><a href="#concrete-printing">Concrete printing project</a></div></li>
-      <li><span class="when">Jan 2025 – May 2025</span><div><h4>Lunar Greenhouse Harvesting Mechanism, Canadian Space Agency</h4><p>Designed a robotic-arm end effector for handling small plants, with weekly CSA mentorship.</p><a href="#lunar-greenhouse">Lunar greenhouse project</a></div></li>
-      <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>Architectural models, cinema camera hardware and 3D printed props sold online.</p><a href="#architectural-models">Business projects</a></div></li>
-    </ul>
-  </section>
-
-  <section id="more" class="wrap block">
-    <div class="two">
-      <div>
-        <div class="sec-head"><h2>Awards</h2></div>
-        <ul class="awards">
-          <li><b>3rd place, Canadian Engineering Competition</b><span>Junior Design, March 2026. Qualified by winning the Queen's and Ontario competitions.</span></li>
-          <li><b>Judges' Choice Award, MechMania</b><span>April 2026. 4-day design challenge against 275 mechanical engineering students.</span></li>
-        </ul>
-      </div>
-      <div>
-        <div class="sec-head"><h2>Skills</h2></div>
-        <dl class="skills">
-          <dt>Fabrication</dt><dd>3D printing, composite layups, laser cutting, machine shop, welding, soldering</dd>
-          <dt>Design &amp; analysis</dt><dd>SolidWorks, Onshape, Rhino/Grasshopper, Ansys (FEA), technical drawings</dd>
-          <dt>Robotics</dt><dd>ABB RobotStudio, Rhino Robot</dd>
-          <dt>Programming</dt><dd>Python, C, C++, MATLAB</dd>
-        </dl>
-      </div>
-    </div>
-  </section>
+  <!-- PROJECT DETAIL VIEW -->
+  <div id="view-detail" class="view" hidden>
+    <div class="wrap" id="detail"></div>
+  </div>
 </main>
 
-<footer id="contact" class="wrap">
-  <div class="sec-head"><h2>Contact</h2></div>
-  <p class="big"><a href="mailto:lukelchipman@gmail.com">lukelchipman@gmail.com</a></p>
-  <div class="btns">
-    <a class="btn solid" href="mailto:lukelchipman@gmail.com">Email me</a>
-    <a class="btn" href="https://www.linkedin.com/in/luke-chipman/" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="btn" href="resume.pdf" download>Résumé (PDF)</a>
+<footer id="contact">
+  <div class="wrap">
+    <p class="big"><a href="mailto:lukelchipman@gmail.com">lukelchipman@gmail.com</a></p>
+    <div class="btns">
+      <a class="btn solid" href="mailto:lukelchipman@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/luke-chipman/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+    <p class="small">© <span id="yr"></span> Luke Chipman</p>
   </div>
-  <p class="small">© <span id="yr"></span> Luke Chipman</p>
 </footer>
 
 <dialog id="lightbox" aria-label="Photo viewer">
-  <button type="button" aria-label="Close" onclick="this.closest('dialog').close()">×</button>
+  <button type="button" class="x" aria-label="Close">×</button>
+  <button type="button" class="lbn lbp" aria-label="Previous photo">‹</button>
+  <button type="button" class="lbn lbx" aria-label="Next photo">›</button>
   <img alt=""><p></p>
 </dialog>
 
 <script>
 /* ============================================================
    EDIT YOUR PROJECTS HERE.
-   Order in this list = order on the page (best/newest first).
-   Photos go in the /images folder. Use as many as you like per
-   project; the first one is the large photo. Missing photos show
-   a striped placeholder with the filename to add.
+   - Order in this list = order on the site (best/newest first).
+   - The first HOME_COUNT projects also appear on the home page.
+   - Photos go in /images. Add as many per project as you like;
+     the first is the cover photo. Missing photos show a striped
+     placeholder with the filename to add.
+   - "details" is optional longer text shown on the project page
+     (one string per paragraph).
    ============================================================ */
 const HERO_IMAGE = { src: "images/hero.jpg", alt: "Luke with the automatic tool changer" };
+const HOME_COUNT = 6;
 
 const projects = [
   {
-    id: "tool-changer", short: "Automatic tool changer",
+    id: "tool-changer",
     title: "Automatic tool changer for collaborative concrete printing robots",
-    org: "Twente Additive Manufacturing", role: "Design lead", date: "2026", year: "2026",
+    org: "Twente Additive Manufacturing", role: "Design lead", date: "2026", category: "Robotics",
     summary: "Independently led the design, fabrication and testing of a 6-tool automatic tool changer that lets two concrete 3D printing robots work together on one print.",
+    details: [],
     points: [
       "Took the system from concept through fabrication and testing",
       "Moved manufacturing to an overseas machine shop: produced the technical drawings and verified part quality and tolerances",
       "Installed and assembled two concrete 3D printers on site",
       "Wrote documentation for every mechanical part and system I designed"
     ],
-    tags: ["Robotics", "Mechanism design", "DFM", "Technical drawings"],
+    tags: ["Mechanism design", "DFM", "Technical drawings"],
     images: [
       { src: "images/tool-changer-1.jpg", alt: "Six-tool changer rack" },
       { src: "images/tool-changer-2.jpg", alt: "Tool changer CAD" },
@@ -242,31 +307,33 @@ const projects = [
     ]
   },
   {
-    id: "sae-aero", short: "SAE Aero composite UAV",
+    id: "sae-aero",
     title: "Composite UAV for SAE Aero Design",
-    org: "Queen's Aerospace Design Team", role: "Mechanical Director", date: "2026 – present", year: "2026",
+    org: "Queen's Aerospace Design Team", role: "Mechanical Director", date: "2026 – present", category: "Aerospace",
     summary: "Overseeing the mechanical sub-teams designing and manufacturing a fixed-wing composite UAV for the SAE Aero Design competition.",
+    details: [],
     points: [
       "Advise on mechanical design decisions across sub-teams",
       "Own integration between structures and the rest of the aircraft"
     ],
-    tags: ["Aerospace", "Composites", "Leadership"],
+    tags: ["Composites", "Leadership"],
     images: [
       { src: "images/sae-aero-1.jpg", alt: "SAE Aero UAV" },
       { src: "images/sae-aero-2.jpg", alt: "SAE Aero CAD" }
     ]
   },
   {
-    id: "dbf-uav", short: "AIAA DBF carbon fibre UAV",
+    id: "dbf-uav",
     title: "Full carbon fibre UAV for AIAA Design/Build/Fly",
-    org: "Queen's Aerospace Design Team", role: "Aero-Structures Manager", date: "2025 – 2026", year: "2026",
+    org: "Queen's Aerospace Design Team", role: "Aero-Structures Manager", date: "2025 – 2026", category: "Aerospace",
     summary: "Led a 10-person team that designed and built a fully carbon fibre aircraft for the AIAA DBF 2026 competition.",
+    details: [],
     points: [
       "Fabricated with composite layups, waterjet-cut carbon internal structure and FDM printed parts",
       "Ran FEA on structural components",
       "Integrated with the aerodynamics, electrical and software teams"
     ],
-    tags: ["Aerospace", "Carbon fibre", "FEA", "Team lead"],
+    tags: ["Carbon fibre", "FEA", "Team lead"],
     images: [
       { src: "images/dbf-1.jpg", alt: "DBF aircraft" },
       { src: "images/dbf-2.jpg", alt: "Carbon layup" },
@@ -275,42 +342,45 @@ const projects = [
     ]
   },
   {
-    id: "cec", short: "Canadian Engineering Competition",
+    id: "cec",
     title: "Canadian Engineering Competition, Junior Design",
-    org: "CEC 2026", role: "Team member", date: "March 2026", year: "2026",
+    org: "CEC 2026", role: "Team member", date: "March 2026", category: "Competitions",
     award: "3rd place in Canada",
     // TODO: add one sentence on the problem and what your team built
     summary: "Designed, built and presented a prototype against regional finalists from across Canada. Qualified by winning the Queen's and Ontario Engineering Competitions.",
+    details: [],
     points: [],
-    tags: ["Rapid prototyping", "Competition"],
+    tags: ["Rapid prototyping"],
     images: [
       { src: "images/cec-1.jpg", alt: "CEC prototype" },
       { src: "images/cec-2.jpg", alt: "CEC team" }
     ]
   },
   {
-    id: "mechmania", short: "MechMania",
+    id: "mechmania",
     title: "MechMania design challenge",
-    org: "MechMania 2026", role: "Team member", date: "April 2026", year: "2026",
+    org: "MechMania 2026", role: "Team member", date: "April 2026", category: "Competitions",
     award: "Judges' Choice Award",
     // TODO: add one sentence on what you built
     summary: "Four-day design challenge competing against 275 mechanical engineering students.",
+    details: [],
     points: [],
-    tags: ["Rapid prototyping", "Competition"],
+    tags: ["Rapid prototyping"],
     images: [
       { src: "images/mechmania-1.jpg", alt: "MechMania build" }
     ]
   },
   {
-    id: "concrete-printing", short: "7-axis concrete printing",
+    id: "concrete-printing",
     title: "Programming 7-axis concrete 3D printers",
-    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", year: "2025",
+    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", category: "Robotics",
     summary: "Programmed and operated 7-axis robotic concrete printers, and ran live demos for prospective clients.",
+    details: [],
     points: [
       "Built toolpaths with Rhino/Grasshopper and ABB RobotStudio",
       "Created parametric CAD for demo prints tailored to each client"
     ],
-    tags: ["Robotics", "Additive manufacturing", "Parametric design"],
+    tags: ["Additive manufacturing", "Parametric design"],
     images: [
       { src: "images/concrete-1.jpg", alt: "Concrete print in progress" },
       { src: "images/concrete-2.jpg", alt: "Finished concrete print" },
@@ -318,35 +388,38 @@ const projects = [
     ]
   },
   {
-    id: "woodworking", short: "Woodworking attachments",
+    id: "woodworking",
     title: "Woodworking attachments for concrete printing robots",
-    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", year: "2025",
+    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", category: "Robotics",
     summary: "Prototyped experimental woodworking end effectors so the printing robots could do more than extrude concrete.",
+    details: [],
     points: [],
-    tags: ["Robotics", "Prototyping"],
+    tags: ["Prototyping", "End effector"],
     images: [
       { src: "images/woodworking-1.jpg", alt: "Woodworking attachment" }
     ]
   },
   {
-    id: "lunar-greenhouse", short: "Lunar greenhouse end effector",
+    id: "lunar-greenhouse",
     title: "Lunar greenhouse harvesting end effector",
-    org: "Canadian Space Agency", role: "Designer", date: "Jan – May 2025", year: "2025",
+    org: "Canadian Space Agency", role: "Designer", date: "Jan – May 2025", category: "Robotics",
     summary: "Designed an end effector for a robotic arm to handle small-scale plants in a lunar greenhouse.",
+    details: [],
     points: [
       "Weekly design reviews and professional development with CSA mentors"
     ],
-    tags: ["Robotics", "Space", "End effector"],
+    tags: ["Space", "End effector"],
     images: [
       { src: "images/lunar-1.jpg", alt: "End effector CAD" },
       { src: "images/lunar-2.jpg", alt: "End effector prototype" }
     ]
   },
   {
-    id: "architectural-models", short: "Architectural house models",
+    id: "architectural-models",
     title: "3D printed architectural house models",
-    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", year: "2024",
+    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
     summary: "Scale models of houses showing the surrounding topography, exterior and floor plan.",
+    details: [],
     points: [],
     tags: ["3D printing", "Business"],
     images: [
@@ -355,10 +428,11 @@ const projects = [
     ]
   },
   {
-    id: "cinema-filters", short: "Cinema filter frames",
+    id: "cinema-filters",
     title: "Aluminum frames for cinema diffusion filters",
-    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", year: "2024",
+    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
     summary: "Designed aluminum frames that hold glass diffusion filters for cinema cameras.",
+    details: [],
     points: [],
     tags: ["Product design", "Machining"],
     images: [
@@ -366,10 +440,11 @@ const projects = [
     ]
   },
   {
-    id: "props", short: "3D printed props",
+    id: "props",
     title: "3D printed props sold on Etsy",
-    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", year: "2024",
+    org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
     summary: "Designed and sold 3D printed props, generating over $10k in sales and selling over 700 design files.",
+    details: [],
     points: [],
     tags: ["Product design", "3D printing", "Business"],
     images: [
@@ -380,68 +455,165 @@ const projects = [
 ];
 
 /* ---------- rendering (no need to edit below) ---------- */
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const byId = id => projects.find(p => p.id === id);
 
-function imgTag(im) {
-  return `<img src="${esc(im.src)}" alt="${esc(im.alt || "")}" loading="lazy"
+function imgTag(im, eager) {
+  return `<img src="${esc(im.src)}" alt="${esc(im.alt)}" ${eager ? "" : 'loading="lazy"'}
     onerror="this.outerHTML='<div class=&quot;ph&quot;>Add photo:<br>${esc(im.src)}</div>'">`;
 }
 
-function galleryHTML(p) {
+/* rotating preview: used on cards and on the detail page */
+function rotHTML(p, idx = 0, opts = {}) {
   const imgs = p.images || [];
-  if (!imgs.length) return `<div class="gallery"><div class="main"><div class="ph">Add photos to this project</div></div></div>`;
-  const thumbs = imgs.length > 1
-    ? `<div class="thumbs">${imgs.map((im, i) =>
-        `<button type="button" data-i="${i}" aria-label="Show photo ${i + 1}" aria-current="${i === 0}">${imgTag(im)}</button>`).join("")}</div>`
-    : "";
-  return `<div class="gallery" data-id="${p.id}"><div class="main" role="button" tabindex="0" aria-label="Enlarge photo">${imgTag(imgs[0])}</div>${thumbs}</div>`;
+  if (!imgs.length) return `<div class="rot"><div class="ph">Add photos</div></div>`;
+  const multi = imgs.length > 1;
+  return `<div class="rot" data-rot="${p.id}" data-i="${idx}" ${opts.zoom ? 'role="button" tabindex="0" aria-label="Enlarge photo"' : ""}>
+    ${imgTag(imgs[idx], opts.eager)}
+    ${multi ? `<button type="button" class="arrow prev" aria-label="Previous photo">‹</button>
+               <button type="button" class="arrow next" aria-label="Next photo">›</button>
+               <div class="dots">${imgs.map((_, i) => `<i class="${i === idx ? "on" : ""}"></i>`).join("")}</div>` : ""}
+  </div>`;
+}
+function setRot(rot, i) {
+  const p = byId(rot.dataset.rot), n = p.images.length;
+  i = (i + n) % n;
+  rot.dataset.i = i;
+  rot.querySelector("img, .ph").outerHTML = imgTag(p.images[i], true);
+  rot.querySelectorAll(".dots i").forEach((d, k) => d.classList.toggle("on", k === i));
+  const thumbs = rot.parentElement.querySelectorAll(".thumbs button");
+  thumbs.forEach((b, k) => b.setAttribute("aria-current", k === i));
 }
 
-document.getElementById("projects").innerHTML = projects.map(p => `
-  <article class="project" id="${p.id}">
-    ${galleryHTML(p)}
-    <div>
+function cardHTML(p) {
+  return `<article class="card">
+    ${rotHTML(p)}
+    <div class="text">
       ${p.award ? `<span class="award">${esc(p.award)}</span>` : ""}
-      <h3>${esc(p.title)}</h3>
-      <p class="meta"><strong>${esc(p.role)}</strong>, ${esc(p.org)}, ${esc(p.date)}</p>
+      <p class="meta">${esc(p.org)}, ${esc(p.date)}</p>
+      <h3><a href="#/projects/${p.id}">${esc(p.title)}</a></h3>
       <p class="sum">${esc(p.summary)}</p>
-      ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-      <ul class="tags">${p.tags.map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+      <span class="more">More info</span>
     </div>
-  </article>`).join("");
+  </article>`;
+}
 
-document.getElementById("index").innerHTML = projects.map(p =>
-  `<li><a href="#${p.id}"><span class="t">${esc(p.short || p.title)}</span><span class="y">${esc(p.year)}</span></a></li>`).join("");
-document.getElementById("count").textContent = `${projects.length} projects, newest first`;
-document.querySelector("[data-hero]").innerHTML = imgTag(HERO_IMAGE);
-document.getElementById("yr").textContent = new Date().getFullYear();
+function detailHTML(p) {
+  const i = projects.indexOf(p), prev = projects[i - 1], next = projects[i + 1];
+  const imgs = p.images || [];
+  return `
+    <a class="back" href="#/projects">‹ All projects</a>
+    <div class="detail">
+      <div>
+        ${rotHTML(p, 0, { zoom: true, eager: true })}
+        ${imgs.length > 1 ? `<div class="thumbs">${imgs.map((im, k) =>
+          `<button type="button" data-k="${k}" aria-label="Show photo ${k + 1}" aria-current="${k === 0}">${imgTag(im, true)}</button>`).join("")}</div>` : ""}
+      </div>
+      <div>
+        ${p.award ? `<span class="award">${esc(p.award)}</span>` : ""}
+        <h1>${esc(p.title)}</h1>
+        <p class="meta"><strong>${esc(p.role)}</strong>, ${esc(p.org)}, ${esc(p.date)}</p>
+        <p>${esc(p.summary)}</p>
+        ${(p.details || []).map(d => `<p>${esc(d)}</p>`).join("")}
+        ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+        <ul class="tags">${[p.category, ...p.tags].map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+      </div>
+    </div>
+    <nav class="pager" aria-label="More projects">
+      ${prev ? `<a href="#/projects/${prev.id}"><span>‹ Previous</span><b>${esc(prev.title)}</b></a>` : ""}
+      ${next ? `<a class="nxt" href="#/projects/${next.id}"><span>Next ›</span><b>${esc(next.title)}</b></a>` : ""}
+    </nav>`;
+}
 
-/* thumbnails + lightbox */
-const lb = document.getElementById("lightbox");
-document.addEventListener("click", e => {
-  const t = e.target.closest(".thumbs button");
-  if (t) {
-    const g = t.closest(".gallery"), p = projects.find(x => x.id === g.dataset.id);
-    g.querySelector(".main").innerHTML = imgTag(p.images[+t.dataset.i]);
-    g.querySelectorAll(".thumbs button").forEach(b => b.setAttribute("aria-current", b === t));
-    return;
+/* filters on the projects view */
+let filter = "All";
+const categories = ["All", ...new Set(projects.map(p => p.category))];
+function renderAll() {
+  $("#filters").innerHTML = categories.map(c =>
+    `<button type="button" aria-pressed="${c === filter}" data-f="${esc(c)}">${esc(c)}</button>`).join("");
+  const list = filter === "All" ? projects : projects.filter(p => p.category === filter);
+  $("#all-grid").innerHTML = list.map(cardHTML).join("");
+  $("#count").textContent = `${list.length} project${list.length === 1 ? "" : "s"}`;
+}
+
+/* static parts */
+$("#home-grid").innerHTML = projects.slice(0, HOME_COUNT).map(cardHTML).join("");
+$("#hero-photo").innerHTML = imgTag(HERO_IMAGE, true);
+$("#yr").textContent = new Date().getFullYear();
+renderAll();
+
+/* router: #/  #/projects  #/projects/<id> */
+function route() {
+  const h = location.hash;
+  if (h === "#contact") return;           // plain in-page jump to footer
+  const m = h.match(/^#\/projects(?:\/([\w-]+))?/);
+  const view = m ? (m[1] && byId(m[1]) ? "detail" : "projects") : "home";
+  ["home", "projects", "detail"].forEach(v => $(`#view-${v}`).hidden = v !== view);
+  if (view === "detail") {
+    const p = byId(m[1]);
+    $("#detail").innerHTML = detailHTML(p);
+    document.title = `${p.title} | Luke Chipman`;
+  } else {
+    document.title = view === "projects" ? "Projects | Luke Chipman" : "Luke Chipman · Mechanical Design";
   }
-  const m = e.target.closest(".main");
-  if (m) openLB(m);
-  if (e.target === lb) lb.close();
-});
-document.addEventListener("keydown", e => {
-  const m = e.target.closest && e.target.closest(".main");
-  if (m && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openLB(m); }
-});
-function openLB(m) {
-  const img = m.querySelector("img");
-  if (!img) return;
-  lb.querySelector("img").src = img.src;
-  lb.querySelector("img").alt = img.alt;
-  lb.querySelector("p").textContent = img.alt;
+  const el = $(`#view-${view}`);
+  el.classList.remove("view-enter"); void el.offsetWidth; el.classList.add("view-enter");
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    if (a.dataset.nav === (view === "home" ? "home" : "projects")) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+
+/* interactions */
+const lb = $("#lightbox");
+let lbState = null;
+function openLB(id, i) {
+  lbState = { p: byId(id), i };
+  showLB();
   lb.showModal();
 }
+function showLB() {
+  const { p } = lbState, n = p.images.length;
+  lbState.i = (lbState.i + n) % n;
+  const im = p.images[lbState.i];
+  lb.querySelector("img").src = im.src;
+  lb.querySelector("img").alt = im.alt;
+  lb.querySelector("p").textContent = im.alt;
+  lb.querySelectorAll(".lbn").forEach(b => b.hidden = n < 2);
+}
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  const arrow = t.closest(".rot .arrow");
+  if (arrow) {
+    e.preventDefault(); e.stopPropagation();
+    const rot = arrow.closest(".rot");
+    setRot(rot, +rot.dataset.i + (arrow.classList.contains("next") ? 1 : -1));
+    return;
+  }
+  const thumb = t.closest(".thumbs button");
+  if (thumb) { setRot(thumb.closest(".detail").querySelector(".rot"), +thumb.dataset.k); return; }
+  const f = t.closest("[data-f]");
+  if (f) { filter = f.dataset.f; renderAll(); return; }
+  const zoom = t.closest(".detail .rot");
+  if (zoom && zoom.querySelector("img")) { openLB(zoom.dataset.rot, +zoom.dataset.i); return; }
+  if (t.closest(".lbp")) { lbState.i--; showLB(); return; }
+  if (t.closest(".lbx")) { lbState.i++; showLB(); return; }
+  if (t.closest(".x") || t === lb) lb.close();
+});
+document.addEventListener("keydown", e => {
+  if (lb.open && lbState) {
+    if (e.key === "ArrowLeft") { lbState.i--; showLB(); }
+    if (e.key === "ArrowRight") { lbState.i++; showLB(); }
+    return;
+  }
+  const z = e.target.closest && e.target.closest(".detail .rot");
+  if (z && (e.key === "Enter" || e.key === " ") && z.querySelector("img")) { e.preventDefault(); openLB(z.dataset.rot, +z.dataset.i); }
+});
 </script>
 </body>
 </html>
