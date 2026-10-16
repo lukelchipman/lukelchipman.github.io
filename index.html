@@ -10,11 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#ECEEEB;
-    --surface:#F8F9F7;
+    --bg:#E5E3DE;
+    --surface:#F2F1ED;
     --ink:#161D26;
     --steel:#56616D;
-    --line:#CDD2CF;
+    --line:#D0CDC6;
     --hivis:#F3C318;
     --max:1180px;
     --gutter:clamp(16px,4vw,48px);
@@ -32,7 +32,7 @@
   /* nav */
   .nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
-  .nav .mark{font-weight:800;font-variation-settings:"wdth" 125;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+  .nav .mark{font-weight:500;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
   .nav ul{display:flex;gap:clamp(14px,2.5vw,28px);list-style:none;margin:0;padding:0;font-size:15px}
   .nav ul a{text-decoration:none;color:var(--steel);padding:4px 0;border-bottom:2px solid transparent}
   .nav ul a:hover{color:var(--ink)}
@@ -46,7 +46,7 @@
 
   /* hero */
   .hero{padding-top:clamp(48px,9vw,110px);padding-bottom:clamp(40px,6vw,72px)}
-  .hero h1{margin:0;font-weight:850;font-variation-settings:"wdth" 125;font-size:clamp(54px,11.5vw,156px);line-height:.86;letter-spacing:-.035em}
+  .hero h1{margin:0;font-weight:400;font-variation-settings:"wdth" 100;font-size:clamp(48px,8.5vw,112px);line-height:.95;letter-spacing:-.03em}
   .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,56px);margin-top:clamp(28px,4vw,48px);align-items:end}
   .hero p.lede{font-size:clamp(19px,2.1vw,23px);line-height:1.45;margin:0 0 24px;max-width:34ch}
   .facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 28px;padding:0;list-style:none;color:var(--steel);font-size:15px}
@@ -92,12 +92,12 @@
   /* rotating preview (cards + detail) */
   .rot{position:relative;aspect-ratio:3/2;background:var(--surface);overflow:hidden}
   .rot img{width:100%;height:100%;object-fit:cover}
-  .rot .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(248,249,247,.9);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;opacity:0;transition:opacity .15s}
+  .rot .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(242,241,237,.9);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;opacity:0;transition:opacity .15s}
   .rot .prev{left:8px}.rot .next{right:8px}
   .card:hover .arrow,.rot .arrow:focus-visible{opacity:1}
   @media (hover:none){.rot .arrow{opacity:1}}
   .rot .dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:2;pointer-events:none}
-  .rot .dots i{width:6px;height:6px;border-radius:50%;background:rgba(248,249,247,.6);box-shadow:0 0 0 1px rgba(22,29,38,.25)}
+  .rot .dots i{width:6px;height:6px;border-radius:50%;background:rgba(242,241,237,.6);box-shadow:0 0 0 1px rgba(22,29,38,.25)}
   .rot .dots i.on{background:#fff}
   .ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:12px;color:var(--steel);font-size:13px;line-height:1.35;
       background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(86,97,109,.07) 10px 20px),var(--surface)}
@@ -169,7 +169,7 @@
     <ul>
       <li><a href="#/" data-nav="home">About</a></li>
       <li><a href="#/projects" data-nav="projects">Projects</a></li>
-      <li class="hide-sm"><a href="resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+      <li class="hide-sm"><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -182,15 +182,15 @@
       <h1>Luke<br>Chipman</h1>
       <div class="hero-grid">
         <div>
-          <p class="lede">Mechanical engineering student at Queen's University. I design, build and test hardware: robotic tooling, composite aircraft, and products people buy.</p>
+          <p class="lede">Mechanical engineering student at Queen's University. I design, build and test hardware: robotic tooling, composite aircraft and 3D printed products.</p>
           <ul class="facts">
             <li><b>4.0 GPA</b>Mech. Eng., Materials option</li>
             <li><b>3rd in Canada</b>CEC Junior Design 2026</li>
-            <li><b>$10k+</b>in product sales</li>
+            <li><b>Class of 2028</b>Graduating May 2028</li>
           </ul>
           <div class="btns">
             <a class="btn solid" href="#/projects">View projects</a>
-            <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+            <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
           </div>
         </div>
         <div class="hero-photo" id="hero-photo"></div>
@@ -205,12 +205,11 @@
     <section class="wrap sec">
       <div class="sec-head"><h2>Experience</h2><span class="aside">Queen's B.A.Sc. Mechanical Engineering, 2024–2028</span></div>
       <ul class="exp">
-        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Led the automatic tool changer, installed two concrete printers on site, moved part manufacturing to an overseas shop.</p><a href="#/projects/tool-changer">Tool changer project</a></div></li>
-        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Oversee the mechanical sub-teams designing and building a composite UAV for SAE Aero Design.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
-        <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team building a full carbon fibre UAV for AIAA Design/Build/Fly 2026.</p><a href="#/projects/dbf-uav">DBF UAV project</a></div></li>
-        <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and ran 7-axis concrete printers, built client demos, prototyped woodworking attachments.</p><a href="#/projects/concrete-printing">Concrete printing project</a></div></li>
-        <li><span class="when">Jan 2025 – May 2025</span><div><h4>Lunar Greenhouse Harvesting Mechanism, Canadian Space Agency</h4><p>Designed a robotic-arm end effector for handling small plants, with weekly CSA mentorship.</p><a href="#/projects/lunar-greenhouse">Lunar greenhouse project</a></div></li>
-        <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>Architectural models, cinema camera hardware and 3D printed props sold online.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
+        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Independently led design, fabrication and testing of a 6-tool automatic tool changer, installed and assembled 2 concrete 3D printers on site, and led the transition of manufacturing to an overseas machine shop.</p><a href="#/projects/tool-changer">Tool changer project</a></div></li>
+        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Overseeing the mechanical sub-teams in designing and manufacturing a fixed-wing composite UAV for the SAE Aero 2026 competition.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
+        <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team to design and fabricate a fully carbon fibre UAV for the AIAA DBF 2026 competition.</p><a href="#/projects/dbf-uav">DBF UAV project</a></div></li>
+        <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and operated 7-axis concrete 3D printers, developed live demos for potential clients, and prototyped woodworking attachments.</p><a href="#/projects/concrete-printing">Concrete printing project</a></div></li>
+        <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>3D printed architectural models, aluminum frames for cinema camera filters, and 3D printed props sold on Etsy.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
       </ul>
     </section>
 
@@ -219,7 +218,9 @@
         <div>
           <div class="sec-head"><h2>Awards</h2></div>
           <ul class="awards">
-            <li><b>3rd place, Canadian Engineering Competition</b><span>Junior Design, March 2026. Qualified by winning the Queen's and Ontario competitions.</span></li>
+            <li><b>3rd place, Canadian Engineering Competition</b><span>Junior Design, March 2026. Competed against regional finalists from across Canada.</span></li>
+            <li><b>1st place, Ontario Engineering Competition</b><span>Junior Design, 2026. Qualified for the Canadian Engineering Competition.</span></li>
+            <li><b>1st place, Queen's Engineering Competition</b><span>Junior Design, 2026. Qualified for the Ontario Engineering Competition.</span></li>
             <li><b>Judges' Choice Award, MechMania</b><span>April 2026. 4-day design challenge against 275 mechanical engineering students.</span></li>
           </ul>
         </div>
@@ -258,7 +259,7 @@
     <div class="btns">
       <a class="btn solid" href="mailto:lukelchipman@gmail.com">Email me</a>
       <a class="btn" href="https://www.linkedin.com/in/luke-chipman/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
     </div>
     <p class="small">© <span id="yr"></span> Luke Chipman</p>
   </div>
@@ -289,11 +290,10 @@ const projects = [
   {
     id: "tool-changer",
     title: "Automatic tool changer for collaborative concrete printing robots",
-    org: "Twente Additive Manufacturing", role: "Design lead", date: "2026", category: "Robotics",
+    org: "Twente Additive Manufacturing", role: "Mechanical Engineering Intern", date: "May 2026 – present", category: "Robotics",
     summary: "Independently led the design, fabrication and testing of a 6-tool automatic tool changer that lets two concrete 3D printing robots work together on one print.",
     details: [],
     points: [
-      "Took the system from concept through fabrication and testing",
       "Moved manufacturing to an overseas machine shop: produced the technical drawings and verified part quality and tolerances",
       "Installed and assembled two concrete 3D printers on site",
       "Wrote documentation for every mechanical part and system I designed"
@@ -310,11 +310,10 @@ const projects = [
     id: "sae-aero",
     title: "Composite UAV for SAE Aero Design",
     org: "Queen's Aerospace Design Team", role: "Mechanical Director", date: "2026 – present", category: "Aerospace",
-    summary: "Overseeing the mechanical sub-teams designing and manufacturing a fixed-wing composite UAV for the SAE Aero Design competition.",
+    summary: "Overseeing the mechanical sub-teams designing and manufacturing a fixed-wing composite UAV for the SAE Aero 2026 competition.",
     details: [],
     points: [
-      "Advise on mechanical design decisions across sub-teams",
-      "Own integration between structures and the rest of the aircraft"
+      "Advising on mechanical design and ensuring integration across the team"
     ],
     tags: ["Composites", "Leadership"],
     images: [
@@ -343,11 +342,11 @@ const projects = [
   },
   {
     id: "cec",
-    title: "Canadian Engineering Competition, Junior Design",
-    org: "CEC 2026", role: "Team member", date: "March 2026", category: "Competitions",
+    title: "Canadian Engineering Competition",
+    org: "Junior Design", role: "", date: "March 2026", category: "Competitions",
     award: "3rd place in Canada",
     // TODO: add one sentence on the problem and what your team built
-    summary: "Designed, built and presented a prototype against regional finalists from across Canada. Qualified by winning the Queen's and Ontario Engineering Competitions.",
+    summary: "Competed against regional finalists from across Canada to design, build, and present a prototype to solve an engineering problem. Qualified by winning the Queen's and Ontario Engineering Competitions.",
     details: [],
     points: [],
     tags: ["Rapid prototyping"],
@@ -357,12 +356,40 @@ const projects = [
     ]
   },
   {
+    id: "oec",
+    title: "Ontario Engineering Competition",
+    org: "Junior Design", role: "", date: "2026", category: "Competitions",
+    award: "1st place in Ontario",
+    // TODO: add the date and one sentence on the problem and what your team built
+    summary: "Won Junior Design at the Ontario Engineering Competition, qualifying for the Canadian Engineering Competition.",
+    details: [],
+    points: [],
+    tags: ["Rapid prototyping"],
+    images: [
+      { src: "images/oec-1.jpg", alt: "OEC prototype" }
+    ]
+  },
+  {
+    id: "qec",
+    title: "Queen's Engineering Competition",
+    org: "Junior Design", role: "", date: "2026", category: "Competitions",
+    award: "1st place",
+    // TODO: add the date and one sentence on the problem and what your team built
+    summary: "Won Junior Design at the Queen's Engineering Competition, qualifying for the Ontario Engineering Competition.",
+    details: [],
+    points: [],
+    tags: ["Rapid prototyping"],
+    images: [
+      { src: "images/qec-1.jpg", alt: "QEC prototype" }
+    ]
+  },
+  {
     id: "mechmania",
     title: "MechMania design challenge",
-    org: "MechMania 2026", role: "Team member", date: "April 2026", category: "Competitions",
+    org: "MechMania", role: "", date: "April 2026", category: "Competitions",
     award: "Judges' Choice Award",
     // TODO: add one sentence on what you built
-    summary: "Four-day design challenge competing against 275 mechanical engineering students.",
+    summary: "Competed against 275 mechanical engineering students in a 4-day design challenge.",
     details: [],
     points: [],
     tags: ["Rapid prototyping"],
@@ -373,12 +400,11 @@ const projects = [
   {
     id: "concrete-printing",
     title: "Programming 7-axis concrete 3D printers",
-    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", category: "Robotics",
-    summary: "Programmed and operated 7-axis robotic concrete printers, and ran live demos for prospective clients.",
+    org: "Twente Additive Manufacturing", role: "Mechanical Engineering Intern", date: "May – Aug 2025", category: "Robotics",
+    summary: "Used Rhino/Grasshopper and RobotStudio to program and operate 7-axis concrete 3D printers, and developed live demos for potential clients.",
     details: [],
     points: [
-      "Built toolpaths with Rhino/Grasshopper and ABB RobotStudio",
-      "Created parametric CAD for demo prints tailored to each client"
+      "Created parametric CAD for 3D prints used in client demos"
     ],
     tags: ["Additive manufacturing", "Parametric design"],
     images: [
@@ -390,8 +416,8 @@ const projects = [
   {
     id: "woodworking",
     title: "Woodworking attachments for concrete printing robots",
-    org: "Twente Additive Manufacturing", role: "Intern", date: "Summer 2025", category: "Robotics",
-    summary: "Prototyped experimental woodworking end effectors so the printing robots could do more than extrude concrete.",
+    org: "Twente Additive Manufacturing", role: "Mechanical Engineering Intern", date: "May – Aug 2025", category: "Robotics",
+    summary: "Prototyped experimental woodworking attachments for the concrete 3D printers.",
     details: [],
     points: [],
     tags: ["Prototyping", "End effector"],
@@ -402,11 +428,11 @@ const projects = [
   {
     id: "lunar-greenhouse",
     title: "Lunar greenhouse harvesting end effector",
-    org: "Canadian Space Agency", role: "Designer", date: "Jan – May 2025", category: "Robotics",
-    summary: "Designed an end effector for a robotic arm to handle small-scale plants in a lunar greenhouse.",
+    org: "Canadian Space Agency", role: "", date: "Jan – May 2025", category: "Robotics",
+    summary: "Designed an end effector for a robotic arm for manipulation of small-scale plants.",
     details: [],
     points: [
-      "Weekly design reviews and professional development with CSA mentors"
+      "Attended weekly meetings with mentors from the Canadian Space Agency for design and professional development"
     ],
     tags: ["Space", "End effector"],
     images: [
@@ -418,7 +444,7 @@ const projects = [
     id: "architectural-models",
     title: "3D printed architectural house models",
     org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
-    summary: "Scale models of houses showing the surrounding topography, exterior and floor plan.",
+    summary: "Scale 3D printed architectural models of houses, accurately showing the surrounding topography, exterior, and floor plan.",
     details: [],
     points: [],
     tags: ["3D printing", "Business"],
@@ -513,7 +539,7 @@ function detailHTML(p) {
       <div>
         ${p.award ? `<span class="award">${esc(p.award)}</span>` : ""}
         <h1>${esc(p.title)}</h1>
-        <p class="meta"><strong>${esc(p.role)}</strong>, ${esc(p.org)}, ${esc(p.date)}</p>
+        <p class="meta">${p.role ? `<strong>${esc(p.role)}</strong>, ` : ""}${esc(p.org)}, ${esc(p.date)}</p>
         <p>${esc(p.summary)}</p>
         ${(p.details || []).map(d => `<p>${esc(d)}</p>`).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
