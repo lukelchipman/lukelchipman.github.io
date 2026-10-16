@@ -103,10 +103,21 @@
       background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(86,97,109,.07) 10px 20px),var(--surface)}
 
   /* detail view */
-  .back{display:inline-block;margin:clamp(24px,4vw,40px) 0 20px;font-size:15px;text-decoration:none;color:var(--steel)}
+  .back{display:inline-block;margin:clamp(24px,4vw,40px) 0 28px;font-size:15px;text-decoration:none;color:var(--steel)}
   .back:hover{color:var(--ink)}
-  .detail{display:grid;grid-template-columns:7fr 5fr;gap:clamp(20px,3.5vw,48px);align-items:start}
-  @media (max-width:860px){.detail{grid-template-columns:1fr}}
+  .detail{max-width:760px;margin:0 auto}
+  .detail .head{margin:0 0 24px}
+  .detail .lead{font-size:clamp(19px,2vw,21px);line-height:1.5;margin:0 0 32px}
+  .detail .gallery{margin:0 0 36px}
+  .detail .gallery figcaption,.detail figure.inline figcaption{font-size:14px;color:var(--steel);margin-top:8px}
+  .detail .body p{margin:0 0 18px;line-height:1.7}
+  .detail .body h2{font-size:22px;font-weight:700;margin:40px 0 12px;letter-spacing:-.01em}
+  .detail figure{margin:0}
+  .detail figure.inline{margin:28px 0}
+  .detail figure.inline img{width:auto;max-width:100%;border:1px solid var(--line);background:var(--surface)}
+  .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .detail .tags{margin-top:36px}
   .detail .rot{border:1px solid var(--line);cursor:zoom-in}
   .detail .rot .arrow{opacity:1}
   .thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}
@@ -114,15 +125,15 @@
   .thumbs button[aria-current="true"]{opacity:1;outline:2px solid var(--ink);outline-offset:-2px}
   .thumbs img{width:100%;height:100%;object-fit:cover}
   .thumbs .ph{font-size:0}
-  .detail h1{margin:0 0 6px;font-size:clamp(26px,3vw,36px);line-height:1.1;font-weight:800;font-variation-settings:"wdth" 110;letter-spacing:-.02em}
+  .detail h1{margin:0 0 10px;font-size:clamp(30px,4vw,44px);line-height:1.1;font-weight:800;font-variation-settings:"wdth" 110;letter-spacing:-.02em}
   .detail .meta{color:var(--steel);font-size:15px;margin:0 0 18px}
   .detail .meta strong{color:var(--ink);font-weight:600}
   .detail p{margin:0 0 14px}
-  .detail ul.pts{margin:0 0 18px;padding-left:1.1em}
+  .detail ul.pts{margin:0 0 18px;padding-left:1.2em;line-height:1.6}
   .detail ul.pts li{margin:0 0 6px}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
   .tags li{font-size:13px;border:1px solid var(--line);background:var(--surface);padding:2px 8px;border-radius:20px;color:var(--steel)}
-  .pager{display:flex;justify-content:space-between;gap:16px;margin-top:clamp(40px,6vw,64px);padding-top:16px;border-top:1px solid var(--line)}
+  .pager{max-width:760px;margin:clamp(40px,6vw,64px) auto 0;display:flex;justify-content:space-between;gap:16px;padding-top:16px;border-top:1px solid var(--line)}
   .pager a{text-decoration:none;max-width:45%}
   .pager span{display:block;font-size:13px;color:var(--steel)}
   .pager b{font-weight:600}
@@ -280,8 +291,11 @@
    - Photos go in /images. Add as many per project as you like;
      the first is the cover photo. Missing photos show a striped
      placeholder with the filename to add.
-   - "details" is optional longer text shown on the project page
-     (one string per paragraph).
+   - "details" is optional longer text on the project page:
+     a plain "string" is a paragraph, { heading: "..." } is a
+     subheading, { img: "images/x.jpg", caption: "..." } is a photo.
+   - "video" is optional: the ID from a YouTube link
+     (youtube.com/watch?v=THIS_PART).
    ============================================================ */
 const HERO_IMAGE = { src: "images/hero.jpg", alt: "Luke with the automatic tool changer" };
 const HOME_COUNT = 6;
@@ -326,6 +340,7 @@ const projects = [
     title: "Full carbon fibre UAV for AIAA Design/Build/Fly",
     org: "Queen's Aerospace Design Team", role: "Aero-Structures Manager", date: "2025 – 2026", category: "Aerospace",
     summary: "Led a 10-person team that designed and built a fully carbon fibre aircraft for the AIAA DBF 2026 competition.",
+    video: "vK5_JMbjJ4Y",
     details: [],
     points: [
       "Fabricated with composite layups, waterjet-cut carbon internal structure and FDM printed parts",
@@ -346,13 +361,18 @@ const projects = [
     org: "Junior Design", role: "", date: "March 2026", category: "Competitions",
     award: "3rd place in Canada",
     // TODO: add one sentence on the problem and what your team built
-    summary: "Competed against regional finalists from across Canada to design, build, and present a prototype to solve an engineering problem. Qualified by winning the Queen's and Ontario Engineering Competitions.",
-    details: [],
+    summary: "Developed a system that could autonomously load cargo, then deliver it and sort it by size. Competed against regional finalists from across Canada to design, build, and present the prototype, after qualifying by winning the Queen's and Ontario Engineering Competitions.",
+    details: [
+      { heading: "Designing in CAD" },
+      "The cargo was marbles, and sorting them by size meant the parts that guided and separated them had to be manufactured to tight tolerances. CAD was a core part of the design process: modelling the sorting geometry first let us check fits and clearances before committing to manufacturing.",
+      { img: "images/cec-3.jpg", caption: "CAD model of part of the sorting system" }
+    ],
     points: [],
     tags: ["Rapid prototyping"],
     images: [
+      { src: "images/cec-2.jpg", alt: "The Queen's team at the CEC 2026 awards" },
       { src: "images/cec-1.jpg", alt: "Prototype vehicles on the competition track at CEC 2026" },
-      { src: "images/cec-2.jpg", alt: "The Queen's team at the CEC 2026 awards" }
+      { src: "images/cec-3.jpg", alt: "CAD model of part of the sorting system" }
     ]
   },
   {
@@ -508,6 +528,8 @@ function setRot(rot, i) {
   rot.dataset.i = i;
   rot.querySelector("img, .ph").outerHTML = imgTag(p.images[i], true);
   rot.querySelectorAll(".dots i").forEach((d, k) => d.classList.toggle("on", k === i));
+  const cap = rot.parentElement.querySelector("figcaption");
+  if (cap) cap.textContent = p.images[i].alt;
   const thumbs = rot.parentElement.querySelectorAll(".thumbs button");
   thumbs.forEach((b, k) => b.setAttribute("aria-current", k === i));
 }
@@ -528,24 +550,33 @@ function cardHTML(p) {
 function detailHTML(p) {
   const i = projects.indexOf(p), prev = projects[i - 1], next = projects[i + 1];
   const imgs = p.images || [];
+  const block = d => typeof d === "string"
+    ? `<p>${esc(d)}</p>`
+    : d.heading ? `<h2>${esc(d.heading)}</h2>`
+    : d.img ? `<figure class="inline">${imgTag({ src: d.img, alt: d.caption || "" })}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
+    : "";
   return `
-    <a class="back" href="#/projects">‹ All projects</a>
-    <div class="detail">
-      <div>
-        ${rotHTML(p, 0, { zoom: true, eager: true })}
-        ${imgs.length > 1 ? `<div class="thumbs">${imgs.map((im, k) =>
-          `<button type="button" data-k="${k}" aria-label="Show photo ${k + 1}" aria-current="${k === 0}">${imgTag(im, true)}</button>`).join("")}</div>` : ""}
-      </div>
-      <div>
+    <article class="detail">
+      <a class="back" href="#/projects">‹ All projects</a>
+      <header class="head">
         ${p.award ? `<span class="award">${esc(p.award)}</span>` : ""}
         <h1>${esc(p.title)}</h1>
         <p class="meta">${p.role ? `<strong>${esc(p.role)}</strong>, ` : ""}${esc(p.org)}, ${esc(p.date)}</p>
-        <p>${esc(p.summary)}</p>
-        ${(p.details || []).map(d => `<p>${esc(d)}</p>`).join("")}
+      </header>
+      <p class="lead">${esc(p.summary)}</p>
+      ${imgs.length ? `<figure class="gallery">
+        ${rotHTML(p, 0, { zoom: true, eager: true })}
+        ${imgs.length > 1 ? `<div class="thumbs">${imgs.map((im, k) =>
+          `<button type="button" data-k="${k}" aria-label="Show photo ${k + 1}" aria-current="${k === 0}">${imgTag(im, true)}</button>`).join("")}</div>` : ""}
+        <figcaption>${esc(imgs[0].alt)}</figcaption>
+      </figure>` : ""}
+      <div class="body">
+        ${(p.details || []).map(block).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-        <ul class="tags">${[p.category, ...p.tags].map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+        ${p.video ? `<h2>Video</h2><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.video)}" title="${esc(p.title)} video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
       </div>
-    </div>
+      <ul class="tags">${[p.category, ...p.tags].map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+    </article>
     <nav class="pager" aria-label="More projects">
       ${prev ? `<a href="#/projects/${prev.id}"><span>‹ Previous</span><b>${esc(prev.title)}</b></a>` : ""}
       ${next ? `<a class="nxt" href="#/projects/${next.id}"><span>Next ›</span><b>${esc(next.title)}</b></a>` : ""}
