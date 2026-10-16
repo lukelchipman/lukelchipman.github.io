@@ -243,7 +243,7 @@
             <li><b>3rd place, Canadian Engineering Competition</b><span>Junior Design, March 2026. Competed against regional finalists from across Canada.</span></li>
             <li><b>1st place, Ontario Engineering Competition</b><span>Junior Design, 2026. Qualified for the Canadian Engineering Competition.</span></li>
             <li><b>1st place, Queen's Engineering Competition</b><span>Junior Design, 2026. Qualified for the Ontario Engineering Competition.</span></li>
-            <li><b>Judges' Choice Award, MechMania</b><span>April 2026. 4-day design challenge against 275 mechanical engineering students.</span></li>
+            <li><b>Judges' Choice Award, MechMania</b><span>April 2026. Week-long design competition open to all mechanical engineering students in the same year.</span></li>
           </ul>
         </div>
         <div>
@@ -428,13 +428,18 @@ const projects = [
     title: "MechMania design challenge",
     org: "MechMania", role: "", date: "April 2026", category: "Competitions",
     award: "Judges' Choice Award",
-    // TODO: add one sentence on what you built
-    summary: "Competed against 275 mechanical engineering students in a 4-day design challenge.",
-    details: [],
+    summary: "Awarded the Judges' Choice Award at MechMania, a week-long design competition open to all mechanical engineering students in the same year. The team designed and built a system that autonomously aimed and fired a foosball to hit targets.",
+    details: [
+      "The system integrated servos, DC motors and Arduino control, applying fluids and kinematics principles to aim and launch the ball.",
+      "The judges recognized the project for the strength of its design, how clearly the team communicated it, and its potential to scale up into a real-world application.",
+      { video: "videos/mechmania.mp4", poster: "videos/mechmania.jpg", caption: "The launcher firing during testing" }
+    ],
     points: [],
-    tags: ["Rapid prototyping"],
+    tags: ["Mechatronics", "Rapid prototyping", "Arduino"],
     images: [
-      { src: "images/mechmania-1.jpg", alt: "MechMania build" }
+      { src: "images/mechmania-1.jpg", alt: "The launcher firing during testing" },
+      { src: "images/mechmania-2.jpg", alt: "Close-up of the servo-driven firing mechanism" },
+      { src: "images/mechmania-3.jpg", alt: "The finished MechMania launcher" }
     ]
   },
   {
