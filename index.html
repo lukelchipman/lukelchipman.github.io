@@ -114,13 +114,14 @@
   .detail .body h2{font-size:22px;font-weight:700;margin:40px 0 12px;letter-spacing:-.01em}
   .detail figure{margin:0}
   .detail figure.inline{margin:28px 0}
-  .detail figure.inline img{width:auto;max-width:100%;border:1px solid var(--line);background:var(--surface)}
+  .detail figure.inline img{width:auto;max-width:100%;max-height:440px;border:1px solid var(--line);background:var(--surface)}
+  .detail video.clip{width:100%;display:block;background:#000;border:1px solid var(--line)}
   .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .detail .tags{margin-top:36px}
   .detail .rot{border:1px solid var(--line);cursor:zoom-in}
   .detail .rot .arrow{opacity:1}
-  .thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;margin-top:8px}
   .thumbs button{padding:0;border:1px solid var(--line);background:var(--surface);aspect-ratio:1;cursor:pointer;overflow:hidden;opacity:.55}
   .thumbs button[aria-current="true"]{opacity:1;outline:2px solid var(--ink);outline-offset:-2px}
   .thumbs img{width:100%;height:100%;object-fit:cover}
@@ -447,17 +448,38 @@ const projects = [
   },
   {
     id: "lunar-greenhouse",
-    title: "Lunar greenhouse harvesting end effector",
-    org: "Canadian Space Agency", role: "", date: "Jan – May 2025", category: "Robotics",
-    summary: "Designed an end effector for a robotic arm for manipulation of small-scale plants.",
-    details: [],
-    points: [
-      "Attended weekly meetings with mentors from the Canadian Space Agency for design and professional development"
+    title: "CASEE: lunar greenhouse harvesting end effector",
+    org: "Canadian Space Agency", role: "Mechanical design and FEA", date: "Jan – May 2025", category: "Robotics",
+    summary: "Designed an end effector for the CSA's HarveStar robotic arm that could grasp, harvest and transport small plants in a lunar greenhouse, as part of a first-year design project for the Canadian Space Agency.",
+    details: [
+      "The arm had to pick up a 3D printed radish, tomato and carrot and drop each one in a collection bucket in under 30 seconds. The end effector had to run off a single MG90S micro servo, weigh under 60 g, fit inside a 100 mm cube and cost under $100. We met weekly with mentors from the Canadian Space Agency for design reviews.",
+      { heading: "The design" },
+      "CASEE is a gear-driven parallel linkage, so the jaws stay parallel as they close and contact objects of any size the same way. A thin stainless-steel wire inside each jaw lets it deflect around the object, and elastics on the jaws add friction for a better grip.",
+      { img: "images/lunar-8.jpg", caption: "Sketch of the deflecting jaw concept" },
+      { heading: "Iterating" },
+      "I led the mechanical design through four versions, ran the 3D printing and assembly, and made working drawings for every part. Small test prints settled the gear and pivot sizes first. Later versions fixed tolerances, the servo-to-gear connection, and jaws that couldn't be printed in one piece. Some days we printed more than one iteration.",
+      { img: "images/lunar-3.jpg", caption: "The four versions of CASEE, from first test prints to the final end effector" },
+      { heading: "Analysis" },
+      "I built force models of the mechanism and learned Ansys Workbench to run static structural simulations on the jaws, checking that the servo could deflect them and that they would handle the grip force.",
+      { img: "images/lunar-4.jpg", caption: "Static structural FEA of a jaw in Ansys" },
+      { heading: "Controller" },
+      "I also helped build a handheld controller with an orientation sensor, letting an operator steer the arm by tilting their hand.",
+      { video: "videos/csa-controller.mp4", poster: "videos/csa-controller.jpg", caption: "Steering the arm with the handheld controller" },
+      { heading: "Result" },
+      "CASEE picked up and delivered all three plants in about 3 seconds each, well under the 30-second target, and passed 7 of 8 test requirements. The prototype came in at $80.23.",
+      { video: "videos/csa-demo.mp4", poster: "videos/csa-demo.jpg", caption: "The HarveStar arm harvesting with CASEE" }
     ],
-    tags: ["Space", "End effector"],
+    points: [],
+    tags: ["Mechanism design", "FEA", "3D printing", "Space"],
     images: [
-      { src: "images/lunar-1.jpg", alt: "End effector CAD" },
-      { src: "images/lunar-2.jpg", alt: "End effector prototype" }
+      { src: "images/lunar-1.jpg", alt: "Final CASEE end effector" },
+      { src: "images/lunar-2.jpg", alt: "CAD of CASEE on the HarveStar arm" },
+      { src: "images/lunar-3.jpg", alt: "The four versions of CASEE" },
+      { src: "images/lunar-6.jpg", alt: "Iterations laid out next to the HarveStar arm" },
+      { src: "images/lunar-4.jpg", alt: "Static structural FEA of a jaw in Ansys" },
+      { src: "images/lunar-5.jpg", alt: "Handheld controller" },
+      { src: "images/lunar-7.jpg", alt: "Sketch of the jaws closing on an object" },
+      { src: "images/lunar-8.jpg", alt: "Sketch of the deflecting jaw concept" }
     ]
   },
   {
@@ -554,6 +576,7 @@ function detailHTML(p) {
     ? `<p>${esc(d)}</p>`
     : d.heading ? `<h2>${esc(d.heading)}</h2>`
     : d.img ? `<figure class="inline">${imgTag({ src: d.img, alt: d.caption || "" })}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
+    : d.video ? `<figure class="inline"><video class="clip" src="${esc(d.video)}" ${d.poster ? `poster="${esc(d.poster)}"` : ""} controls playsinline preload="none"></video>${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : "";
   return `
     <article class="detail">
