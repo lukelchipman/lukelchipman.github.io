@@ -123,6 +123,13 @@
   .detail figure.inline img{width:auto;max-width:100%;max-height:440px;border:1px solid var(--line);background:var(--surface)}
   .detail video.clip{width:100%;display:block;margin:0 auto;background:#000;border:1px solid var(--line)}
   .detail video.clip.small{max-width:460px}
+  .detail figure.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}
+  .detail figure.pair figcaption{grid-column:1/-1}
+  .detail figure.pair img{width:100%;max-height:none}
+  .pdf{aspect-ratio:4/3;border:1px solid var(--line);background:var(--surface);margin:8px 0 10px}
+  .pdf iframe{width:100%;height:100%;border:0;display:block}
+  .pdf-link{font-size:15px}
+  @media (max-width:600px){.pdf{aspect-ratio:3/4}}
   .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .detail .tags{margin-top:36px}
@@ -312,6 +319,10 @@
      "More info" page.
    - credits: ["..."] adds a Credits section at the bottom of the
      project page.
+   - pdf: { src: "files/x.pdf", title: "Presentation" } embeds a PDF
+     at the bottom of the project page.
+   - { imgs: ["a.jpg", "b.jpg"], caption: "..." } in details shows two
+     photos side by side.
    - "video" is optional: the ID from a YouTube link
      (youtube.com/watch?v=THIS_PART).
    ============================================================ */
@@ -401,13 +412,30 @@ const projects = [
     title: "Ontario Engineering Competition",
     org: "Junior Design", role: "", date: "2026", category: "Competitions",
     award: "1st place in Ontario",
-    // TODO: add the date and one sentence on the problem and what your team built
-    summary: "Won Junior Design at the Ontario Engineering Competition, qualifying for the Canadian Engineering Competition.",
-    details: [],
+    summary: "In a single-day design competition, designed and built Hermes, a low-cost launch and landing mechanism for a space vehicle. Won Junior Design, qualifying for the Canadian Engineering Competition.",
+    details: [
+      "The challenge was to launch a capsule carrying an egg so it cleared 36 cm above the platform, landed within 30 cm of a target 3.23 m away, and protected the egg from a 3.92 m drop. Everything had to fit in a 60 × 60 × 90 cm volume, set up in two minutes and launch with one hand, using low-cost materials like popsicle sticks, skewers and hot glue.",
+      { heading: "Launch mechanism" },
+      "A trade study pointed to an elastic-powered slingshot that launches the capsule along a low-friction paper ramp, supported by a trussed popsicle-stick frame.",
+      { img: "images/oec-5.jpg", caption: "CAD of the launch frame and ramp" },
+      { heading: "Structural analysis" },
+      "CAD and FEA were done in Onshape. The goal was to minimize deflection, not just stress: a frame that flexed under the elastic load launched inconsistently, and in testing the hot glue joints failed from deflection before the members saw high stress. Trussing stiffened the frame where the elastic bands attach.",
+      { imgs: ["images/oec-fea-1.jpg", "images/oec-fea-2.jpg"], caption: "Onshape FEA of the launch frame under elastic load: stress (left) and deflected shape (right)" },
+      { heading: "Capsule" },
+      "The capsule is a Solo cup casing with a sponge and plastic stuffing to absorb the landing, with the egg and cushioning in the bottom half to lower the centre of gravity. The streamer works like a parachute, but its main job is orientation: it keeps the capsule pointed so it lands on its nose.",
+      { img: "images/oec-4.jpg", caption: "The capsule and its streamer" },
+      { heading: "Iterating" },
+      "Two rounds of testing during the day shaped the final design. The first showed the frame bending at the elastic attachment point and the capsule failing on impact, which led to the trussing, padding and streamer. The second fixed inconsistent launches by moving the mechanism forward and pulling it back further, so every launch released from the same point."
+    ],
     points: [],
-    tags: ["Rapid prototyping"],
+    tags: ["Onshape", "FEA", "Rapid prototyping"],
+    pdf: { src: "files/oec-presentation.pdf", title: "Presentation" },
     images: [
-      { src: "images/oec-1.jpg", alt: "OEC prototype" }
+      { src: "images/oec-1.jpg", alt: "The team with their awards at OEC 2026" },
+      { src: "images/oec-2.jpg", alt: "Loading the capsule onto the launcher at the competition" },
+      { src: "images/oec-3.jpg", alt: "The launcher and capsule" },
+      { src: "images/oec-4.jpg", alt: "The capsule and its streamer" },
+      { src: "images/oec-5.jpg", alt: "CAD of the launch frame and ramp" }
     ]
   },
   {
@@ -626,6 +654,7 @@ function detailHTML(p) {
     ? `<p>${esc(d)}</p>`
     : d.heading ? `<h2>${esc(d.heading)}</h2>`
     : d.img ? `<figure class="inline">${imgTag({ src: d.img, alt: d.caption || "" })}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
+    : d.imgs ? `<figure class="inline pair">${d.imgs.map(src => imgTag({ src, alt: d.caption || "" })).join("")}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : d.video ? `<figure class="inline"><video class="clip${d.small ? " small" : ""}" src="${esc(d.video)}" ${d.poster ? `poster="${esc(d.poster)}"` : ""} controls muted playsinline preload="none"></video>${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : "";
   return `
@@ -647,6 +676,9 @@ function detailHTML(p) {
         ${(p.details || []).map(block).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
         ${p.video ? `<h2>Video</h2><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.video)}" title="${esc(p.title)} video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
+        ${p.pdf ? `<h2>${esc(p.pdf.title || "Presentation")}</h2>
+          <div class="pdf"><iframe src="${esc(p.pdf.src)}#view=FitH" title="${esc(p.pdf.title || "Presentation")}" loading="lazy"></iframe></div>
+          <p class="pdf-link"><a href="${esc(p.pdf.src)}" target="_blank" rel="noopener">Open the ${esc((p.pdf.title || "presentation").toLowerCase())} as a PDF</a></p>` : ""}
       </div>
       <ul class="tags">${[p.category, ...p.tags].map(t => `<li>${esc(t)}</li>`).join("")}</ul>
       ${(p.credits || []).length ? `<section class="credits"><h2>Credits</h2><ul>${p.credits.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>` : ""}
