@@ -139,6 +139,10 @@
   .detail ul.pts li{margin:0 0 6px}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
   .tags li{font-size:13px;border:1px solid var(--line);background:var(--surface);padding:2px 8px;border-radius:20px;color:var(--steel)}
+  .credits{margin-top:32px;padding-top:16px;border-top:1px solid var(--line)}
+  .credits h2{font-size:15px;font-weight:700;margin:0 0 6px}
+  .credits ul{list-style:none;margin:0;padding:0;font-size:14px;color:var(--steel)}
+  .credits li{margin:0 0 4px}
   .pager{max-width:760px;margin:clamp(40px,6vw,64px) auto 0;display:flex;justify-content:space-between;gap:16px;padding-top:16px;border-top:1px solid var(--line)}
   .pager a{text-decoration:none;max-width:45%}
   .pager span{display:block;font-size:13px;color:var(--steel)}
@@ -304,6 +308,8 @@
      fill: false to a photo to show the whole photo on the card.
    - page: false  means the project shows as a card only, with no
      "More info" page.
+   - credits: ["..."] adds a Credits section at the bottom of the
+     project page.
    - "video" is optional: the ID from a YouTube link
      (youtube.com/watch?v=THIS_PART).
    ============================================================ */
@@ -343,6 +349,7 @@ const projects = [
       "Advising on mechanical design and ensuring integration across the team"
     ],
     tags: ["VTOL", "Composites", "Leadership"],
+    credits: ["Preliminary design CAD: Bella Reed, Aerodynamics Manager"],
     images: [
       { src: "images/sae-aero-1.jpg", alt: "Preliminary design of the fixed-wing VTOL UAV" }
     ]
@@ -613,6 +620,7 @@ function detailHTML(p) {
         ${p.video ? `<h2>Video</h2><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.video)}" title="${esc(p.title)} video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
       </div>
       <ul class="tags">${[p.category, ...p.tags].map(t => `<li>${esc(t)}</li>`).join("")}</ul>
+      ${(p.credits || []).length ? `<section class="credits"><h2>Credits</h2><ul>${p.credits.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>` : ""}
     </article>
     <nav class="pager" aria-label="More projects">
       ${prev ? `<a href="#/projects/${prev.id}"><span>‹ Previous</span><b>${esc(prev.title)}</b></a>` : ""}
