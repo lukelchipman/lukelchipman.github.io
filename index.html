@@ -74,6 +74,8 @@
   /* filters */
   .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
   .filters button{border:1px solid var(--line);background:var(--surface);padding:6px 14px;border-radius:20px;font-size:14px;cursor:pointer;color:var(--steel)}
+  .filters button{transition:background-color .15s,color .15s,border-color .15s}
+  .filters button:hover{background:var(--ink);border-color:var(--ink);color:var(--surface)}
   .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
 
   /* project grid */
