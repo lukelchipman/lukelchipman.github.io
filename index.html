@@ -86,6 +86,9 @@
   .card h3 a::after{content:"";position:absolute;inset:0}  /* whole card clickable */
   .card{position:relative}
   .card p.sum{margin:0 0 14px;font-size:15px;color:var(--steel);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .card.nolink p.sum{display:block;-webkit-line-clamp:unset;overflow:visible}
+  .card.nolink .rot{cursor:zoom-in}
+  .card.nolink:hover{border-color:var(--line)}
   .card .more{margin-top:auto;font-size:14px;font-weight:600}
   .award{display:inline-block;align-self:flex-start;background:var(--hivis);color:var(--ink);font-weight:700;font-size:13px;padding:2px 8px;margin:0 0 10px;border-radius:2px}
 
@@ -295,6 +298,8 @@
    - "details" is optional longer text on the project page:
      a plain "string" is a paragraph, { heading: "..." } is a
      subheading, { img: "images/x.jpg", caption: "..." } is a photo.
+   - page: false  means the project shows as a card only, with no
+     "More info" page.
    - "video" is optional: the ID from a YouTube link
      (youtube.com/watch?v=THIS_PART).
    ============================================================ */
@@ -499,12 +504,13 @@ const projects = [
     id: "cinema-filters",
     title: "Aluminum frames for cinema diffusion filters",
     org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
+    page: false,
     summary: "Designed aluminum frames that hold glass diffusion filters for cinema cameras.",
     details: [],
     points: [],
     tags: ["Product design", "Machining"],
     images: [
-      { src: "images/filter-1.jpg", alt: "Filter frame" }
+      { src: "images/filter-1.jpg", alt: "Aluminum frame holding a glass diffusion filter" }
     ]
   },
   {
@@ -556,21 +562,23 @@ function setRot(rot, i) {
   thumbs.forEach((b, k) => b.setAttribute("aria-current", k === i));
 }
 
+const hasPage = p => p.page !== false;
 function cardHTML(p) {
-  return `<article class="card">
-    ${rotHTML(p)}
+  const linked = hasPage(p);
+  return `<article class="card${linked ? "" : " nolink"}">
+    ${rotHTML(p, 0, { zoom: !linked })}
     <div class="text">
       ${p.award ? `<span class="award">${esc(p.award)}</span>` : ""}
       <p class="meta">${esc(p.org)}, ${esc(p.date)}</p>
-      <h3><a href="#/projects/${p.id}">${esc(p.title)}</a></h3>
+      <h3>${linked ? `<a href="#/projects/${p.id}">${esc(p.title)}</a>` : esc(p.title)}</h3>
       <p class="sum">${esc(p.summary)}</p>
-      <span class="more">More info</span>
+      ${linked ? `<span class="more">More info</span>` : ""}
     </div>
   </article>`;
 }
 
 function detailHTML(p) {
-  const i = projects.indexOf(p), prev = projects[i - 1], next = projects[i + 1];
+  const list = projects.filter(hasPage), i = list.indexOf(p), prev = list[i - 1], next = list[i + 1];
   const imgs = p.images || [];
   const block = d => typeof d === "string"
     ? `<p>${esc(d)}</p>`
@@ -628,7 +636,7 @@ function route() {
   const h = location.hash;
   if (h === "#contact") return;           // plain in-page jump to footer
   const m = h.match(/^#\/projects(?:\/([\w-]+))?/);
-  const view = m ? (m[1] && byId(m[1]) ? "detail" : "projects") : "home";
+  const view = m ? (m[1] && byId(m[1]) && hasPage(byId(m[1])) ? "detail" : "projects") : "home";
   ["home", "projects", "detail"].forEach(v => $(`#view-${v}`).hidden = v !== view);
   if (view === "detail") {
     const p = byId(m[1]);
@@ -679,7 +687,7 @@ document.addEventListener("click", e => {
   if (thumb) { setRot(thumb.closest(".detail").querySelector(".rot"), +thumb.dataset.k); return; }
   const f = t.closest("[data-f]");
   if (f) { filter = f.dataset.f; renderAll(); return; }
-  const zoom = t.closest(".detail .rot");
+  const zoom = t.closest(".detail .rot, .card.nolink .rot");
   if (zoom && zoom.querySelector("img")) { openLB(zoom.dataset.rot, +zoom.dataset.i); return; }
   if (t.closest(".lbp")) { lbState.i--; showLB(); return; }
   if (t.closest(".lbx")) { lbState.i++; showLB(); return; }
