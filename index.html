@@ -222,7 +222,7 @@
       <div class="sec-head"><h2>Experience</h2><span class="aside">Queen's B.A.Sc. Mechanical Engineering, 2024–2028</span></div>
       <ul class="exp">
         <li><span class="when">May 2026 – present</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Independently led design, fabrication and testing of a 6-tool automatic tool changer, installed and assembled 2 concrete 3D printers on site, and led the transition of manufacturing to an overseas machine shop.</p><a href="#/projects/tool-changer">Tool changer project</a></div></li>
-        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Overseeing the mechanical sub-teams in designing and manufacturing a fixed-wing composite UAV for the SAE Aero 2026 competition.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
+        <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Overseeing the mechanical sub-teams in designing and manufacturing a fixed-wing VTOL composite UAV for the SAE Aero Design 2027 Advanced Class.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
         <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team to design and fabricate a fully carbon fibre UAV for the AIAA DBF 2026 competition.</p><a href="#/projects/dbf-uav">DBF UAV project</a></div></li>
         <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and operated 7-axis concrete 3D printers, developed live demos for potential clients, and prototyped woodworking attachments.</p><a href="#/projects/concrete-printing">Concrete printing project</a></div></li>
         <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>3D printed architectural models, aluminum frames for cinema camera filters, and 3D printed props sold on Etsy.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
@@ -331,17 +331,19 @@ const projects = [
   },
   {
     id: "sae-aero",
-    title: "Composite UAV for SAE Aero Design",
+    title: "Fixed-wing VTOL UAV for SAE Aero Design",
     org: "Queen's Aerospace Design Team", role: "Mechanical Director", date: "2026 – present", category: "Aerospace",
-    summary: "Overseeing the mechanical sub-teams designing and manufacturing a fixed-wing composite UAV for the SAE Aero 2026 competition.",
-    details: [],
+    summary: "Overseeing the mechanical sub-teams designing and manufacturing a fixed-wing VTOL composite UAV for the SAE Aero Design 2027 Advanced Class.",
+    details: [
+      "The Advanced Class mission is to autonomously deliver a payload to a designated landing zone, pick it back up and return to base, all within four minutes. Aircraft are limited to 3.5 lb, three electric motors and a 4-cell, 3000 mAh battery.",
+      "A fixed-wing VTOL layout lets the aircraft land vertically in the zone for delivery and capture, then fly efficiently on the wing between segments. The design shown is preliminary."
+    ],
     points: [
       "Advising on mechanical design and ensuring integration across the team"
     ],
-    tags: ["Composites", "Leadership"],
+    tags: ["VTOL", "Composites", "Leadership"],
     images: [
-      { src: "images/sae-aero-1.jpg", alt: "SAE Aero UAV" },
-      { src: "images/sae-aero-2.jpg", alt: "SAE Aero CAD" }
+      { src: "images/sae-aero-1.jpg", alt: "Preliminary design of the fixed-wing VTOL UAV" }
     ]
   },
   {
