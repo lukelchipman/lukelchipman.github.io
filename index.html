@@ -112,8 +112,8 @@
   .back:hover{color:var(--ink)}
   .detail{max-width:760px;margin:0 auto}
   .detail .head{margin:0 0 24px}
-  .detail .lead{font-size:clamp(19px,2vw,21px);line-height:1.5;margin:0 0 32px}
-  .detail .gallery{margin:0 0 36px}
+  .detail .lead{font-size:clamp(19px,2vw,21px);line-height:1.5;margin:0 0 28px}
+  .detail .gallery{margin:0 0 28px}
   .detail .gallery figcaption,.detail figure.inline figcaption{font-size:14px;color:var(--steel);margin-top:8px}
   .detail .body p{margin:0 0 18px;line-height:1.7}
   .detail .body h2{font-size:22px;font-weight:700;margin:40px 0 12px;letter-spacing:-.01em}
@@ -631,13 +631,13 @@ function detailHTML(p) {
         <h1>${esc(p.title)}</h1>
         <p class="meta">${p.role ? `<strong>${esc(p.role)}</strong>, ` : ""}${esc(p.org)}, ${esc(p.date)}</p>
       </header>
-      <p class="lead">${esc(p.summary)}</p>
       ${imgs.length ? `<figure class="gallery">
         ${rotHTML(p, 0, { zoom: true, eager: true })}
         ${imgs.length > 1 ? `<div class="thumbs">${imgs.map((im, k) =>
           `<button type="button" data-k="${k}" aria-label="Show photo ${k + 1}" aria-current="${k === 0}">${imgTag(im, true)}</button>`).join("")}</div>` : ""}
         <figcaption>${esc(imgs[0].alt)}</figcaption>
       </figure>` : ""}
+      <p class="lead">${esc(p.summary)}</p>
       <div class="body">
         ${(p.details || []).map(block).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
