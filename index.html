@@ -239,7 +239,7 @@
         <li><span class="when">May 2026 – present</span><div><h4>Mechanical Director, Queen's Aerospace Design Team</h4><p>Overseeing the mechanical sub-teams in designing and manufacturing a fixed-wing VTOL composite UAV for the SAE Aero Design 2027 Advanced Class.</p><a href="#/projects/sae-aero">SAE Aero project</a></div></li>
         <li><span class="when">May 2025 – Apr 2026</span><div><h4>Aero-Structures Manager, Queen's Aerospace Design Team</h4><p>Led a 10-person team to design and fabricate a fully carbon fibre UAV for the AIAA DBF 2026 competition.</p><a href="#/projects/dbf-uav">DBF UAV project</a></div></li>
         <li><span class="when">May 2025 – Aug 2025</span><div><h4>Mechanical Engineering Intern, Twente Additive Manufacturing</h4><p>Programmed and operated 7-axis concrete 3D printers, developed live demos for potential clients, and prototyped woodworking attachments.</p><a href="#/projects/concrete-printing">Concrete printing project</a></div></li>
-        <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>3D printed architectural models, aluminum frames for cinema camera filters, and 3D printed props sold on Etsy.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
+        <li><span class="when">Feb 2020 – Aug 2024</span><div><h4>Founder, Luke Chipman Designs</h4><p>3D printed architectural models, aluminum frames for cinema camera filters, and 3D printed tabletop props sold online.</p><a href="#/projects/architectural-models">Business projects</a></div></li>
       </ul>
     </section>
 
@@ -580,15 +580,35 @@ const projects = [
   },
   {
     id: "props",
-    title: "3D printed props sold on Etsy",
+    title: "3D printed tabletop props",
     org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
-    summary: "Designed and sold 3D printed props, generating over $10k in sales and selling over 700 design files.",
-    details: [],
+    summary: "Designed and sold 3D printed tabletop props, including axe, bow and box dice holders. Printed and shipped over 200 physical models, then moved to selling the design files, with over 750 files sold.",
+    details: [
+      "Every model was designed in Fusion. The props double as dice holders for tabletop games, with magnetic lids, fitted compartments for each die and details like runes on the axe pommel and a bow string that holds a pencil like an arrow.",
+      { img: "images/props-2.jpg", caption: "The axe head opens on magnets to hold a full dice set and a miniature" },
+      { heading: "Selling physical prints" },
+      "In the first years of the business, over 200 physical models were printed and shipped. Producing at that volume meant running it like an assembly line, and it taught the common failure modes of printers, where designs fail in printing and use, and how to handle customer service and relations.",
+      { heading: "Marketing" },
+      "The props were marketed on Reddit, where posts received over a million views, and an axe giveaway on r/DnD was covered by Wargamer.",
+      { heading: "Selling files" },
+      "The business moved to selling the design files online, with over 750 files sold and over $4,000 in profit."
+    ],
     points: [],
-    tags: ["Product design", "3D printing", "Business"],
+    tags: ["Fusion", "3D printing", "Product design", "Business"],
+    links: [
+      { href: "https://cults3d.com/en/users/GalacticPrintProps/3d-models", label: "See the models on Cults3D" },
+      { href: "https://www.wargamer.com/dnd/dice-holder-reddit-giveaway", label: "Wargamer coverage" }
+    ],
     images: [
-      { src: "images/props-1.jpg", alt: "Printed prop" },
-      { src: "images/props-2.jpg", alt: "Printed prop" }
+      { src: "images/props-1.jpg", alt: "Axe dice holders in black, silver and copper" },
+      { src: "images/props-2.jpg", alt: "The axe head opens on magnets to hold a full dice set and a miniature" },
+      { src: "images/props-3.jpg", alt: "Runes and grip detail on the axe handle" },
+      { src: "images/props-4.jpg", alt: "Numbered dice slots in the axe handle" },
+      { src: "images/props-7.jpg", alt: "Bow dice holders in three colours" },
+      { src: "images/props-8.jpg", alt: "Bow dice holder holding a pencil like an arrow" },
+      { src: "images/props-9.jpg", alt: "Fitted, numbered compartments in the bow grip" },
+      { src: "images/props-5.jpg", alt: "Magnetic dice boxes" },
+      { src: "images/props-6.jpg", alt: "Inside a dice box" }
     ]
   },
   {
@@ -687,6 +707,7 @@ function detailHTML(p) {
         ${(p.details || []).map(block).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
         ${p.video ? `<h2>Video</h2><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.video)}" title="${esc(p.title)} video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
+        ${(p.links || []).length ? `<p class="pdf-link">${p.links.map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" &nbsp;·&nbsp; ")}</p>` : ""}
         ${p.pdf ? `<h2>${esc(p.pdf.title || "Presentation")}</h2>
           <div class="pdf"><iframe src="${esc(p.pdf.src)}#view=FitH" title="${esc(p.pdf.title || "Presentation")}" loading="lazy"></iframe></div>
           <p class="pdf-link"><a href="${esc(p.pdf.src)}" target="_blank" rel="noopener">Open the ${esc((p.pdf.title || "presentation").toLowerCase())} as a PDF</a></p>` : ""}
