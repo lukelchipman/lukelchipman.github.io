@@ -246,7 +246,7 @@
     </header>
 
     <section class="wrap">
-      <div class="sec-head"><h2>Recent projects</h2><a class="aside" href="#/projects">All projects</a></div>
+      <div class="sec-head"><h2>Featured projects</h2><a class="aside" href="#/projects">All projects</a></div>
       <div class="grid" id="home-grid"></div>
     </section>
 
@@ -325,7 +325,7 @@
 /* ============================================================
    EDIT YOUR PROJECTS HERE.
    - Order in this list = order on the site (best/newest first).
-   - The first HOME_COUNT projects also appear on the home page.
+   - FEATURED lists the project ids shown on the home page, in order.
    - Photos go in /images. Add as many per project as you like;
      the first is the cover photo. Missing photos show a striped
      placeholder with the filename to add.
@@ -346,7 +346,7 @@
      (youtube.com/watch?v=THIS_PART).
    ============================================================ */
 const HERO_IMAGE = { src: "images/hero.jpg", alt: "Luke Chipman standing on a rock above a mountain valley at dusk" };
-const HOME_COUNT = 6;
+const FEATURED = ["tool-changer", "dbf-uav", "cec", "lunar-greenhouse", "oec", "desk-legs"];
 
 const projects = [
   {
@@ -771,7 +771,7 @@ function renderAll() {
 }
 
 /* static parts */
-$("#home-grid").innerHTML = projects.slice(0, HOME_COUNT).map(cardHTML).join("");
+$("#home-grid").innerHTML = FEATURED.map(byId).filter(Boolean).map(cardHTML).join("");
 $("#hero-photo").innerHTML = imgTag(HERO_IMAGE, true);
 $("#yr").textContent = new Date().getFullYear();
 renderAll();
