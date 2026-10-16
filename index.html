@@ -121,7 +121,8 @@
   .detail figure.inline{margin:28px 0;text-align:center}
   .detail figure.inline img{margin:0 auto}
   .detail figure.inline img{width:auto;max-width:100%;max-height:440px;border:1px solid var(--line);background:var(--surface)}
-  .detail video.clip{width:100%;display:block;background:#000;border:1px solid var(--line)}
+  .detail video.clip{width:100%;display:block;margin:0 auto;background:#000;border:1px solid var(--line)}
+  .detail video.clip.small{max-width:460px}
   .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .detail .tags{margin-top:36px}
@@ -432,14 +433,13 @@ const projects = [
     details: [
       "The system integrated servos, DC motors and Arduino control, applying fluids and kinematics principles to aim and launch the ball.",
       "The judges recognized the project for the strength of its design, how clearly the team communicated it, and its potential to scale up into a real-world application.",
-      { video: "videos/mechmania.mp4", poster: "videos/mechmania.jpg", caption: "The launcher firing during testing" }
+      { video: "videos/mechmania.mp4", poster: "videos/mechmania.jpg", caption: "The launcher firing during testing", small: true }
     ],
     points: [],
     tags: ["Mechatronics", "Rapid prototyping", "Arduino"],
     images: [
-      { src: "images/mechmania-1.jpg", alt: "The launcher firing during testing" },
-      { src: "images/mechmania-2.jpg", alt: "Close-up of the servo-driven firing mechanism" },
-      { src: "images/mechmania-3.jpg", alt: "The finished MechMania launcher" }
+      { src: "images/mechmania-3.jpg", alt: "The finished MechMania launcher" },
+      { src: "images/mechmania-2.jpg", alt: "Close-up of the servo-driven firing mechanism" }
     ]
   },
   {
@@ -626,7 +626,7 @@ function detailHTML(p) {
     ? `<p>${esc(d)}</p>`
     : d.heading ? `<h2>${esc(d.heading)}</h2>`
     : d.img ? `<figure class="inline">${imgTag({ src: d.img, alt: d.caption || "" })}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
-    : d.video ? `<figure class="inline"><video class="clip" src="${esc(d.video)}" ${d.poster ? `poster="${esc(d.poster)}"` : ""} controls muted playsinline preload="none"></video>${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
+    : d.video ? `<figure class="inline"><video class="clip${d.small ? " small" : ""}" src="${esc(d.video)}" ${d.poster ? `poster="${esc(d.poster)}"` : ""} controls muted playsinline preload="none"></video>${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : "";
   return `
     <article class="detail">
