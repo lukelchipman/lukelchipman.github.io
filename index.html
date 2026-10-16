@@ -128,7 +128,10 @@
   .detail figure.pair img{width:100%;max-height:none}
   .pdf{aspect-ratio:4/3;border:1px solid var(--line);background:var(--surface);margin:8px 0 10px}
   .pdf iframe{width:100%;height:100%;border:0;display:block}
-  .pdf-link{font-size:15px}
+  .pdf-link{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 24px}
+  .pdf-link a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:var(--ink);color:var(--surface);text-decoration:none;font-weight:600;font-size:15px;border-radius:2px}
+  .pdf-link a::after{content:"↗";font-weight:400}
+  .pdf-link a:hover{background:var(--steel)}
   @media (max-width:600px){.pdf{aspect-ratio:3/4}}
   .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
   .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -597,8 +600,7 @@ const projects = [
     points: [],
     tags: ["Fusion", "3D printing", "Product design", "Business"],
     links: [
-      { href: "https://cults3d.com/en/users/GalacticPrintProps/3d-models", label: "See the models on Cults3D" },
-      { href: "https://www.wargamer.com/dnd/dice-holder-reddit-giveaway", label: "Wargamer article" }
+      { href: "https://cults3d.com/en/users/GalacticPrintProps/3d-models", label: "See the models on Cults3D" }
     ],
     images: [
       { src: "images/props-1.jpg", alt: "Axe dice holders in black, silver and copper" },
@@ -687,7 +689,7 @@ function detailHTML(p) {
     : d.heading ? `<h2>${esc(d.heading)}</h2>`
     : d.img ? `<figure class="inline">${imgTag({ src: d.img, alt: d.caption || "" })}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : d.imgs ? `<figure class="inline pair">${d.imgs.map(src => imgTag({ src, alt: d.caption || "" })).join("")}${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
-    : d.links ? `<p class="pdf-link">${d.links.map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" &nbsp;·&nbsp; ")}</p>`
+    : d.links ? `<p class="pdf-link">${d.links.map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>`
     : d.video ? `<figure class="inline"><video class="clip${d.small ? " small" : ""}" src="${esc(d.video)}" ${d.poster ? `poster="${esc(d.poster)}"` : ""} controls muted playsinline preload="none"></video>${d.caption ? `<figcaption>${esc(d.caption)}</figcaption>` : ""}</figure>`
     : "";
   return `
@@ -709,7 +711,7 @@ function detailHTML(p) {
         ${(p.details || []).map(block).join("")}
         ${p.points.length ? `<ul class="pts">${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
         ${p.video ? `<h2>Video</h2><div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.video)}" title="${esc(p.title)} video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>` : ""}
-        ${(p.links || []).length ? `<p class="pdf-link">${p.links.map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" &nbsp;·&nbsp; ")}</p>` : ""}
+        ${(p.links || []).length ? `<p class="pdf-link">${p.links.map(l => `<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>` : ""}
         ${p.pdf ? `<h2>${esc(p.pdf.title || "Presentation")}</h2>
           <div class="pdf"><iframe src="${esc(p.pdf.src)}#view=FitH" title="${esc(p.pdf.title || "Presentation")}" loading="lazy"></iframe></div>
           <p class="pdf-link"><a href="${esc(p.pdf.src)}" target="_blank" rel="noopener">Open the ${esc((p.pdf.title || "presentation").toLowerCase())} as a PDF</a></p>` : ""}
