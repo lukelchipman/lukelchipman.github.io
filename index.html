@@ -444,13 +444,20 @@ const projects = [
     title: "Queen's Engineering Competition",
     org: "Junior Design", role: "", date: "November 2025", category: "Competitions",
     award: "1st place",
-    // TODO: add the date and one sentence on the problem and what your team built
-    summary: "Won Junior Design at the Queen's Engineering Competition, qualifying for the Ontario Engineering Competition.",
-    details: [],
+    summary: "In a single-day design competition, designed and built Thatch, a small vehicle that carries water over rough and inclined terrain. It went the maximum distance without spilling any water, winning Junior Design and qualifying for the Ontario Engineering Competition.",
+    details: [
+      "The brief was a scalable way to transport water to remote communities over rough and inclined terrain, built only from the provided sustainable materials. The vehicle carried a top-filled container at about 75% full, with the goals of minimizing spillage and maximizing distance.",
+      { heading: "Design" },
+      "A trade study led to four large wheels, a low-mounted container for a low centre of gravity, and long axle separation for stability. Sloshing shifts the vehicle's mass and makes it unstable, so the container sat in a level tilt mechanism that keeps it upright on inclines, with internal baffles to break up the water's movement.",
+      { heading: "Testing" },
+      "Alignment testing on level ground showed the vehicle veering right, traced to a misaligned axle and fixed by realigning it. A tilt test at about 45° confirmed the container stayed level, and the structure was loaded past its 500 g maximum payload and checked for damage and displacement."
+    ],
     points: [],
-    tags: ["Rapid prototyping"],
+    tags: ["Rapid prototyping", "Vehicle design"],
+    pdf: { src: "files/qec-presentation.pdf", title: "Presentation" },
     images: [
-      { src: "images/qec-1.jpg", alt: "QEC prototype" }
+      { src: "images/qec-1.jpg", alt: "The team with their certificates at QEC" },
+      { src: "images/qec-2.jpg", alt: "Thatch, the water transport vehicle" }
     ]
   },
   {
