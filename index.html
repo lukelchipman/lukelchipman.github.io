@@ -95,6 +95,7 @@
   /* rotating preview (cards + detail) */
   .rot{position:relative;aspect-ratio:3/2;background:var(--surface);overflow:hidden}
   .rot img{width:100%;height:100%;object-fit:contain;background:var(--surface)}
+  .card .rot img.fill{object-fit:cover}
   .rot .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:rgba(242,241,237,.9);cursor:pointer;display:grid;place-items:center;font-size:18px;line-height:1;opacity:0;transition:opacity .15s}
   .rot .prev{left:8px}.rot .next{right:8px}
   .card:hover .arrow,.rot .arrow:focus-visible{opacity:1}
@@ -298,6 +299,8 @@
    - "details" is optional longer text on the project page:
      a plain "string" is a paragraph, { heading: "..." } is a
      subheading, { img: "images/x.jpg", caption: "..." } is a photo.
+   - fill: true  on a photo makes it fill the project card (cropped)
+     instead of showing the whole photo.
    - page: false  means the project shows as a card only, with no
      "More info" page.
    - "video" is optional: the ID from a YouTube link
@@ -376,7 +379,7 @@ const projects = [
     points: [],
     tags: ["Rapid prototyping"],
     images: [
-      { src: "images/cec-2.jpg", alt: "The Queen's team at the CEC 2026 awards" },
+      { src: "images/cec-2.jpg", alt: "The Queen's team at the CEC 2026 awards", fill: true },
       { src: "images/cec-1.jpg", alt: "Prototype vehicles on the competition track at CEC 2026" },
       { src: "images/cec-3.jpg", alt: "CAD model of part of the sorting system" }
     ]
@@ -510,7 +513,7 @@ const projects = [
     points: [],
     tags: ["Product design", "Machining"],
     images: [
-      { src: "images/filter-1.jpg", alt: "Aluminum frame holding a glass diffusion filter" }
+      { src: "images/filter-1.jpg", alt: "Aluminum frame holding a glass diffusion filter", fill: true }
     ]
   },
   {
@@ -534,7 +537,7 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt
 const byId = id => projects.find(p => p.id === id);
 
 function imgTag(im, eager) {
-  return `<img src="${esc(im.src)}" alt="${esc(im.alt)}" ${eager ? "" : 'loading="lazy"'}
+  return `<img src="${esc(im.src)}" alt="${esc(im.alt)}"${im.fill ? ` class="fill"` : ""} ${eager ? "" : 'loading="lazy"'}
     onerror="this.outerHTML='<div class=&quot;ph&quot;>Add photo:<br>${esc(im.src)}</div>'">`;
 }
 
