@@ -118,7 +118,8 @@
   .detail .body p{margin:0 0 18px;line-height:1.7}
   .detail .body h2{font-size:22px;font-weight:700;margin:40px 0 12px;letter-spacing:-.01em}
   .detail figure{margin:0}
-  .detail figure.inline{margin:28px 0}
+  .detail figure.inline{margin:28px 0;text-align:center}
+  .detail figure.inline img{margin:0 auto}
   .detail figure.inline img{width:auto;max-width:100%;max-height:440px;border:1px solid var(--line);background:var(--surface)}
   .detail video.clip{width:100%;display:block;background:#000;border:1px solid var(--line)}
   .video{position:relative;aspect-ratio:16/9;background:#000;margin:8px 0 28px}
@@ -506,10 +507,10 @@ const projects = [
     org: "Luke Chipman Designs", role: "Founder", date: "2020 – 2024", category: "Products",
     summary: "Scale 3D printed architectural models of houses, accurately showing the surrounding topography, exterior, and floor plan.",
     details: [
-      "Each house was modelled from its architectural plans and printed on an Ender 3, with parts joined using skewers and glue.",
+      "Each house was modelled in Fusion from its architectural plans and printed on an Ender 3, with parts joined using skewers and glue.",
       "The floors and roofs lift off and are held in place with magnets, so the floor plan of every level can be seen.",
       { img: "images/arch-2.jpg", caption: "Roof removed to show the floor plan of the 1:64 scale model" },
-      "Three of the models accurately show the site topography, based on the site survey. The terrain was printed with lightning infill, leaving the environment blocks mostly hollow to save print time and plastic."
+      "The models accurately show the site topography, based on the site survey. The terrain was printed with lightning infill, leaving the environment blocks mostly hollow to save print time and plastic."
     ],
     points: [],
     tags: ["3D printing", "Architectural modelling", "Business"],
