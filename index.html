@@ -505,6 +505,30 @@ const projects = [
     ]
   },
   {
+    id: "desk-legs",
+    title: "Topology-optimized concrete desk legs",
+    org: "Twente Additive Manufacturing", role: "Summer Student", date: "Summer 2025", category: "Robotics",
+    summary: "Designed and 3D printed concrete desk legs for the TAM office, using topology optimization in Fusion to guide the shape and Rhino/Grasshopper to slice them for the robotic concrete printer.",
+    details: [
+      "Topology optimization in Fusion showed where material was needed to carry the desk load and where it could be removed. Several load cases and design spaces were run to compare how the structure wanted to form.",
+      { imgs: ["images/desk-2.jpg", "images/desk-3.jpg"], caption: "Topology optimization studies in Fusion" },
+      "The final design was influenced by those results but didn't follow them exactly. Printing in concrete set physical constraints the optimizer didn't account for, such as a minimum bead width, continuous toolpaths and walls that can support themselves as layers build up, so the optimized shape was adapted into a form the printer could actually produce.",
+      "The legs were then sliced in Rhino/Grasshopper to generate toolpaths for the robotic printer.",
+      { heading: "Printing" },
+      { video: "videos/desk-1.mp4", poster: "videos/desk-1.jpg", caption: "Printing the first layers", small: true },
+      { video: "videos/desk-2.mp4", poster: "videos/desk-2.jpg", caption: "Building up the walls", small: true },
+      { video: "videos/desk-3.mp4", poster: "videos/desk-3.jpg", caption: "The printed set of legs", small: true }
+    ],
+    points: [],
+    tags: ["Topology optimization", "Fusion", "Rhino/Grasshopper", "Additive manufacturing"],
+    images: [
+      { src: "images/desk-1.jpg", alt: "The finished set of 3D printed concrete desk legs" },
+      { src: "images/desk-2.jpg", alt: "Topology optimization study in Fusion" },
+      { src: "images/desk-3.jpg", alt: "Topology optimization study in Fusion" },
+      { src: "images/desk-4.jpg", alt: "Topology optimization study in Fusion" }
+    ]
+  },
+  {
     id: "woodworking",
     title: "Woodworking attachments for concrete printing robots",
     org: "Twente Additive Manufacturing", role: "Mechanical Engineering Intern", date: "May – Aug 2025", category: "Robotics",
